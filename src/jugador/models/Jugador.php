@@ -20,5 +20,61 @@ class Jugador {
         return $result->fetch_assoc();
     }
 
+    public static function obtenerPorNombre($nombre) {
+        global $conn;
+        $sql = "SELECT * FROM jugadores WHERE nombre LIKE ?";
+        $stmt = $conn->prepare($sql);
+    
+        $param = "%{$nombre}%";
+        $stmt->bind_param("s", $param);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+   // Buscar jugadores por ID del equipo
+    public static function obtenerPorIdEquipo($idEquipo) {
+        global $conn;
+        $sql = "SELECT * FROM jugadores WHERE id_equipo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idEquipo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    // Buscar jugadores por nombre del equipo
+    public static function obtenerPorNombreEquipo($nombreEquipo) {
+        global $conn;
+        $sql = "SELECT j.* 
+                FROM jugadores j
+                INNER JOIN equipos e ON j.id_equipo = e.id_equipo
+                WHERE e.nombre LIKE ?";
+        $stmt = $conn->prepare($sql);
+
+        $param = "%{$nombreEquipo}%"; // búsqueda flexible
+        $stmt->bind_param("s", $param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public static function obtenerPorPosicion($posicion) {
+        global $conn;
+        $sql = "SELECT * FROM jugadores WHERE LOWER(TRIM(posicion)) LIKE LOWER(?)";
+        $stmt = $conn->prepare($sql);
+    
+        $param = "%{$posicion}%"; // sigue permitiendo coincidencias parciales
+        $stmt->bind_param("s", $param);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    
+
+
 }
 ?>

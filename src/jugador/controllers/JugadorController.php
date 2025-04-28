@@ -31,6 +31,75 @@ class JugadorController {
         echo $xml->asXML();
     }
 
+    public static function searchByName($nombre) {
+        $jugadores = JugadorService::obtenerPorNombre($nombre);
+    
+        header('Content-Type: application/xml');
+        $xml = new SimpleXMLElement('<jugadores/>');
+    
+        foreach ($jugadores as $jugador) {
+            $jugadorXml = $xml->addChild('jugador');
+            foreach ($jugador as $key => $value) {
+                $jugadorXml->addChild($key, htmlspecialchars($value));
+            }
+        }
+    
+        echo $xml->asXML();
+    }
+
+    // Buscar jugadores por ID de equipo
+    public static function searchByEquipoId($idEquipo) {
+        $jugadores = JugadorService::obtenerPorIdEquipo($idEquipo);
+
+        header('Content-Type: application/xml');
+        $xml = new SimpleXMLElement('<jugadores/>');
+
+        foreach ($jugadores as $jugador) {
+            $jugadorXml = $xml->addChild('jugador');
+            foreach ($jugador as $key => $value) {
+                $jugadorXml->addChild($key, htmlspecialchars($value));
+            }
+        }
+
+        echo $xml->asXML();
+    }
+
+    // Buscar jugadores por nombre de equipo
+    public static function searchByEquipoNombre($nombreEquipo) {
+        $jugadores = JugadorService::obtenerPorNombreEquipo($nombreEquipo);
+
+        header('Content-Type: application/xml');
+        $xml = new SimpleXMLElement('<jugadores/>');
+
+        foreach ($jugadores as $jugador) {
+            $jugadorXml = $xml->addChild('jugador');
+            foreach ($jugador as $key => $value) {
+                $jugadorXml->addChild($key, htmlspecialchars($value));
+            }
+        }
+
+        echo $xml->asXML();
+    }
+    public static function searchByPosicion($posicion) {
+        $posicion = trim(urldecode($posicion));     
+    
+        $jugadores = JugadorService::obtenerPorPosicion($posicion);
+    
+        header('Content-Type: application/xml');
+        $xml = new SimpleXMLElement('<jugadores/>');
+    
+        foreach ($jugadores as $jugador) {
+            $jugadorXml = $xml->addChild('jugador');
+            foreach ($jugador as $key => $value) {
+                $jugadorXml->addChild($key, htmlspecialchars($value));
+            }
+        }
+    
+        echo $xml->asXML();
+    }
+    
+    
+
     
 }
 ?>-
