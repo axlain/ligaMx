@@ -6,9 +6,8 @@ class JugadorService {
         return Jugador::obtenerTodos();
     }
 
-
+    public static function obtenerPorId($id) {
+        return Jugador::obtenerPorId($id);
+    }
 }
-    
-
-
 ?>

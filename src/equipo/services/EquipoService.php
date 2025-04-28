@@ -5,6 +5,9 @@ class EquipoService {
     public static function obtenerTodos() {
         return Equipo::obtenerTodos();
     }
+    public static function obtenerPorId($id) {
+        return Equipo::obtenerPorId($id);
+    }
 
 
 }
