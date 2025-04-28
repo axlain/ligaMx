@@ -1,0 +1,719 @@
+use ligaMx;
+
+-- 1. Tabla Usuarios
+CREATE TABLE usuarios (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    contraseña VARCHAR(255),
+    fecha_registro DATETIME,
+    fecha_nacimiento DATE
+);
+
+INSERT INTO usuarios (nombre, email, contraseña, fecha_registro, fecha_nacimiento) VALUES
+('Aaron Robles', 'aaron.robles@gmail.com', '123', NOW(), '2004-05-15'),
+('Alex Gonzalez', 'alex.gonzalez@gmail.com', '123', NOW(), '2002-08-22'),
+('Carlos Diaz', 'carlos.diaz@gmail.com', '123', NOW(), '1992-11-03');
+
+
+-- 2. Tabla Equipos
+CREATE TABLE equipos (
+    id_equipo INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    logo_url VARCHAR(255), 
+    liga VARCHAR(100),
+    pais VARCHAR(100)
+);
+INSERT INTO equipos (nombre, logo_url, liga, pais) VALUES
+('América', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\america.png', 'Liga MX', 'México'),
+('Atlas', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\atlas.png', 'Liga MX', 'México'),
+('Atlético San Luis', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\san_luis.png', 'Liga MX', 'México'),
+('Cruz Azul', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\cruz_azul.png', 'Liga MX', 'México'),
+('Guadalajara', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\chivas.png', 'Liga MX', 'México'),
+('Juárez', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\juarez.png', 'Liga MX', 'México'),
+('León', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\leon.png', 'Liga MX', 'México'),
+('Mazatlán', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\mazatlan.png', 'Liga MX', 'México'),
+('Monterrey', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\monterrey.png', 'Liga MX', 'México'),
+('Necaxa', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\necaxa.png', 'Liga MX', 'México'),
+('Pachuca', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\pachuca.png', 'Liga MX', 'México'),
+('Puebla', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\puebla.png', 'Liga MX', 'México'),
+('Pumas UNAM', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\pumas.png', 'Liga MX', 'México'),
+('Querétaro', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\queretaro.png', 'Liga MX', 'México'),
+('Santos Laguna', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\santos.png', 'Liga MX', 'México'),
+('Tigres UANL', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\tigres.png', 'Liga MX', 'México'),
+('Tijuana', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\tijuana.png', 'Liga MX', 'México'),
+('Toluca', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\toluca.png', 'Liga MX', 'México');
+Select * from equipos; 
+
+-- 3. Tabla Preferencias de los Usuarios
+CREATE TABLE preferencias_usuarios (
+    id_usuario INT,
+    id_equipo INT,
+    PRIMARY KEY (id_usuario, id_equipo),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_equipo) REFERENCES equipos(id_equipo)
+);
+
+-- 4. Tabla Jugadores
+CREATE TABLE jugadores (
+    id_jugador INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    id_equipo INT,
+    posicion VARCHAR(50),
+    fecha_nacimiento DATE,
+    FOREIGN KEY (id_equipo) REFERENCES equipos(id_equipo)
+);
+
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+-- america
+('Luis Malagón', 1, 'Portero', '1997-03-02'),
+('Rodolfo Cota', 1, 'Portero', '1987-07-03'),
+('Cristian Calderón', 1, 'Defensa', '1997-05-24'),
+('Cristián Borja', 1, 'Defensa', '1993-02-18'),
+('Israel Reyes', 1, 'Defensa', '2000-05-23'),
+('Sebastián Cáceres', 1, 'Defensa', '1999-08-18'),
+('Néstor Araujo', 1, 'Defensa', '1991-08-29'),
+('Álvaro Fidalgo', 1, 'Centrocampista', '1997-04-09'),
+('Richard Sánchez', 1, 'Centrocampista', '1996-03-29'),
+('Jonathan dos Santos', 1, 'Centrocampista', '1990-04-26'),
+('Diego Valdés', 1, 'Centrocampista', '1994-01-30'),
+('Leo Suárez', 1, 'Centrocampista', '1996-12-30'),
+('Brian Rodríguez', 1, 'Delantero', '2000-05-20'),
+('Henry Martín', 1, 'Delantero', '1992-11-18'),
+('Jonathan Rodríguez', 1, 'Delantero', '1993-07-06'),
+('Federico Viñas', 1, 'Delantero', '1998-06-30'),
+('Salvador Reyes', 1, 'Defensa', '1998-05-23'),
+('Emilio Lara', 1, 'Defensa', '2002-05-18'),
+('Jürgen Damm', 1, 'Centrocampista', '1992-11-07'),
+('Román Martínez', 1, 'Delantero', '2002-08-18'),
+-- atlas
+('Camilo Vargas', 2, 'Portero', '1989-03-09'),
+('Antonio Sánchez', 2, 'Portero', '2000-01-22'),
+('Hugo Nervo', 2, 'Defensa', '1991-01-06'),
+('Idekel Domínguez', 2, 'Defensa', '2000-06-02'),
+('Adrián Mora', 2, 'Defensa', '1997-08-15'),
+('Matheus Doria', 2, 'Defensa', '1994-11-08'),
+('Gaddi Aguirre', 2, 'Defensa', '1996-03-31'),
+('Rivaldo Lozano', 2, 'Defensa', '1997-04-03'),
+('Carlos Robles', 2, 'Defensa', '2000-07-11'),
+('Carlos Orrantía', 2, 'Defensa', '1989-02-01'),
+('Édgar Zaldívar', 2, 'Centrocampista', '1996-10-17'),
+('Mateo García', 2, 'Centrocampista', '1996-09-10'),
+('Alonso Ramírez', 2, 'Centrocampista', '2001-08-20'),
+('Jeremy Márquez', 2, 'Centrocampista', '2000-06-21'),
+('Aldo Rocha', 2, 'Centrocampista', '1992-11-06'),
+('Brian Lozano', 2, 'Centrocampista', '1994-02-23'),
+('Abraham Bass', 2, 'Centrocampista', '2001-07-04'),
+('Matías Cóccaro', 2, 'Delantero', '1997-11-15'),
+('Gustavo del Prete', 2, 'Delantero', '1996-06-12'),
+-- cruz azul
+('Andrés Gudiño', 4, 'Portero', '1997-01-26'),
+('Kevin Mier', 4, 'Portero', '2000-05-18'),
+('Emmanuel Ochoa', 4, 'Portero', '2005-05-05'),
+('Jorge Sánchez', 4, 'Defensa', '1997-12-10'),
+('Omar Campos', 4, 'Defensa', '2002-07-20'),
+('Willer Ditta', 4, 'Defensa', '1997-01-23'),
+('Jesús Orozco', 4, 'Defensa', '2002-02-19'),
+('Raymundo Rubio', 4, 'Defensa', '2001-02-13'),
+('Carlos Vargas', 4, 'Defensa', '1999-02-14'),
+('Gonzalo Piovi', 4, 'Defensa', '1994-09-08'),
+('Érik Lira', 4, 'Centrocampista', '2000-05-08'),
+('Mateusz Bogusz', 4, 'Centrocampista', '2001-08-22'),
+('Lorenzo Faravelli', 4, 'Centrocampista', '1993-03-29'),
+('Andrés Montaño', 4, 'Centrocampista', '2002-05-22'),
+('Alexis Gutiérrez', 4, 'Centrocampista', '2000-02-26'),
+('Ignacio Rivero', 4, 'Centrocampista', '1992-04-10'),
+('Amaury García', 4, 'Centrocampista', '2001-12-19'),
+('Luka Romero', 4, 'Centrocampista', '2004-11-18'),
+('Carlos Rodríguez', 4, 'Centrocampista', '1997-01-03'),
+('Cristian Jiménez', 4, 'Centrocampista', '2002-07-18'),
+('Leonardo Sámano', 4, 'Centrocampista', '2001-06-18'),
+('Ángel Sepúlveda', 4, 'Delantero', '1991-02-15'),
+('Giorgos Giakoumakis', 4, 'Delantero', '1994-12-11'),
+('Gabriel Fernández', 4, 'Delantero', '1994-05-13'),
+('Luis Gutiérrez', 4, 'Delantero', '2001-10-17'),
+-- Chivas
+('Raúl Rangel', 5, 'Portero', '2000-02-25'),
+('Óscar Whalley', 5, 'Portero', '1994-03-29'),
+('Eduardo García', 5, 'Portero', '2002-07-11'),
+('Alan Mozo', 5, 'Defensa', '1997-04-05'),
+('Gilberto Sepúlveda', 5, 'Defensa', '1999-02-04'),
+('Miguel Tapias', 5, 'Defensa', '1997-01-09'),
+('Luis Olivas', 5, 'Defensa', '2000-02-10'),
+('José Castillo', 5, 'Defensa', '2001-12-02'),
+('Leonardo Sepúlveda', 5, 'Defensa', '2001-06-18'),
+('Raúl Martínez', 5, 'Defensa', '2003-03-05'),
+('Víctor Guzmán', 5, 'Centrocampista', '1995-02-03'),
+('Omar Govea', 5, 'Centrocampista', '1996-01-19'),
+('Isaác Brizuela', 5, 'Centrocampista', '1990-08-28'),
+('Érick Gutiérrez', 5, 'Centrocampista', '1995-06-15'),
+('Luis Romo', 5, 'Centrocampista', '1995-06-05'),
+('Fernando Beltrán', 5, 'Centrocampista', '1998-05-08'),
+('Daniel Aguirre', 5, 'Centrocampista', '1999-07-28'),
+('Fernando González', 5, 'Centrocampista', '1994-01-27'),
+('Alan Pulido', 5, 'Delantero', '1991-03-08'),
+('Javier Hernández', 5, 'Delantero', '1988-06-01'),
+('Cade Cowell', 5, 'Delantero', '2003-10-14'),
+('Roberto Alvarado', 5, 'Delantero', '1998-09-07'),
+('Yael Padilla', 5, 'Delantero', '2005-12-19'),
+('Armando González', 5, 'Delantero', '2003-04-20'),
+('Teun Wilke', 5, 'Delantero', '2002-03-14'),
+-- monterrey 
+('Esteban Andrada', 9, 'Portero', '1991-01-26'),
+('Luis Cárdenas', 9, 'Portero', '1993-09-15'),
+('César Ramos', 9, 'Portero', '2000-06-14'),
+('Gerardo Arteaga', 9, 'Defensa', '1998-09-07'),
+('Víctor Guzmán', 9, 'Defensa', '2002-03-07'),
+('Carlos Salcedo', 9, 'Defensa', '1993-09-29'),
+('Héctor Moreno', 9, 'Defensa', '1988-01-17'),
+('Ricardo Chávez', 9, 'Defensa', '1994-11-19'),
+('Luis Reyes', 9, 'Defensa', '1991-04-03'),
+('Stefan Medina', 9, 'Defensa', '1992-06-14'),
+('Tony Leone', 9, 'Defensa', '2004-04-28'),
+('Sergio Ramos', 9, 'Defensa', '1986-03-30'),
+('Sergio Canales', 9, 'Centrocampista', '1991-02-16'),
+('Óliver Torres', 9, 'Centrocampista', '1994-11-10'),
+('Fidel Ambríz', 9, 'Centrocampista', '2003-03-21'),
+('Érick Aguirre', 9, 'Centrocampista', '1997-02-23'),
+('Jordi Cortizo', 9, 'Centrocampista', '1996-06-30'),
+('Jesús Rodríguez', 9, 'Centrocampista', '1995-03-12'),
+('Germán Berterame', 9, 'Delantero', '1998-11-13'),
+('Lucas Ocampos', 9, 'Delantero', '1994-07-11'),
+('Roberto de la Rosa', 9, 'Delantero', '2000-01-04'),
+('Alfonso Alvarado', 9, 'Delantero', '1999-03-15'),
+-- tigres
+('Nahuel Guzmán', 16, 'Portero', '1986-02-10'),
+('Felipe Rodríguez', 16, 'Portero', '1989-06-26'),
+('Fernando Tapia', 16, 'Portero', '2001-06-17'),
+('Anthony Ramos', 16, 'Portero', '2002-07-15'),
+('Joaquim Pereira', 16, 'Defensa', '1997-03-15'),
+('Juan José Purata', 16, 'Defensa', '1996-01-09'),
+('Diego Reyes', 16, 'Defensa', '1992-09-19'),
+('Eduardo Tercero', 16, 'Defensa', '1996-05-06'),
+('Jesús Angulo', 16, 'Defensa', '1998-01-30'),
+('Fernando Ordóñez', 16, 'Defensa', '2000-11-22'),
+('Vladimir Loroña', 16, 'Defensa', '1998-11-16'),
+('Rafael Guerrero', 16, 'Defensa', '2001-08-10'),
+('Osvaldo Rodríguez', 16, 'Defensa', '1996-11-21'),
+('Rafael Carioca', 16, 'Centrocampista', '1989-06-18'),
+('Juan Pablo Vigón', 16, 'Centrocampista', '1991-05-20'),
+('Fernando Gorriarán', 16, 'Centrocampista', '1994-11-27'),
+('Juan Brunetta', 16, 'Centrocampista', '1997-05-12'),
+('Jesús Garza', 16, 'Centrocampista', '1999-04-25'),
+('Diego Lainez', 16, 'Centrocampista', '2000-06-09'),
+('David Ayala', 16, 'Centrocampista', '1998-12-15'),
+('Nicolás Ibáñez', 16, 'Delantero', '1994-08-13'),
+('André-Pierre Gignac', 16, 'Delantero', '1985-12-05'),
+('Ozziel Herrera', 16, 'Delantero', '2001-05-18'),
+('Marcelo Flores', 16, 'Delantero', '2003-10-01');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Andrés Sánchez', 3, 'Portero', '1997-10-03'),
+('César López', 3, 'Portero', '2000-06-10'),
+('Julio César Domínguez', 3, 'Defensa central', '1987-11-08'),
+('Eduardo Águila', 3, 'Defensa central', '2002-05-17'),
+('Daniel Guillén', 3, 'Defensa central', '2001-08-05'),
+('Gabriel Martínez', 3, 'Defensa central', '2002-07-24'),
+('Aldo Cruz', 3, 'Lateral izquierdo', '1997-09-24'),
+('Oliver Pérez', 3, 'Lateral izquierdo', '2002-12-15'),
+('Cristiano Piccini', 3, 'Lateral derecho', '1992-09-26'),
+('Juan Manuel Sanabria', 3, 'Lateral izquierdo', '2000-03-29'),
+('Rodrigo Dourado', 3, 'Pivote', '1994-06-17'),
+('Sébastien Salles-Lamonge', 3, 'Mediocentro', '1996-01-28'),
+('Miguel García', 3, 'Mediocentro', '2001-04-10'),
+('Mateo Klimowicz', 3, 'Mediapunta', '2000-07-06'),
+('Jhon Murillo', 3, 'Extremo derecho', '1995-11-21'),
+('Léo Bonatini', 3, 'Delantero centro', '1994-03-28'),
+('Diego Abitia', 3, 'Delantero centro', '2003-04-16'),
+('Sebastián Pérez Bouquet', 3, 'Mediocentro ofensivo', '2003-06-22'),
+('Jonantan Villal', 3, 'Delantero', '2005-01-06'),
+('Iker Moreno', 3, 'Mediocentro ofensivo', '2003-04-14');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Sebastián Jurado', 6, 'Portero', '1997-09-28'),
+('Benny Díaz', 6, 'Portero', '1998-12-15'),
+('Arturo Delgado', 6, 'Portero', '2002-02-18'),
+('Jesús Murillo', 6, 'Defensa central', '1994-02-18'),
+('Moisés Castillo', 6, 'Defensa central', '2001-05-24'),
+('Diego Campillo', 6, 'Defensa central', '2001-10-19'),
+('José García', 6, 'Defensa central', '1996-02-26'),
+('Óscar Haret Ortega', 6, 'Defensa central', '1999-05-19'),
+('Ralph Orquin', 6, 'Lateral izquierdo', '2002-04-20'),
+('Carlos Salcedo', 6, 'Defensa central', '1993-09-29'),
+('Guilherme Castilho', 6, 'Mediocentro', '1999-09-19'),
+('Jairo Torres', 6, 'Extremo derecho', '2000-07-05'),
+('Diego Valoyes', 6, 'Extremo derecho', '1996-09-22'),
+('Sebastián Saucedo', 6, 'Extremo izquierdo', '1997-01-22'),
+('Avilés Hurtado', 6, 'Extremo izquierdo', '1987-04-20'),
+('Aitor García', 6, 'Extremo izquierdo', '1994-03-25'),
+('Jan Carmona', 6, 'Mediocentro ofensivo', '2005-05-10'),
+('Bryan Romero', 6, 'Defensa central', '2004-08-15'),
+('Kevin Campos', 6, 'Defensa central', '2002-11-30'),
+('Luis Olvera', 6, 'Defensa central', '2001-09-12');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Rodrigo López', 7, 'Portero', '1996-10-21'),
+('Alfonso Blanco', 7, 'Portero', '1987-07-31'),
+('Stiven Barreiro', 7, 'Defensa central', '1994-10-19'),
+('William Tesillo', 7, 'Defensa central', '1990-02-02'),
+('Jorge Rodríguez', 7, 'Lateral derecho', '1995-01-25'),
+('Iván Moreno', 7, 'Lateral derecho', '1998-01-17'),
+('Adonis Frías', 7, 'Defensa central', '1998-03-17'),
+('Omar Rodríguez', 7, 'Lateral izquierdo', '2000-11-09'),
+('José Rodríguez', 7, 'Mediocentro', '1994-12-16'),
+('Fidel Ambríz', 7, 'Mediocentro', '2003-03-21'),
+('Iván Rodríguez', 7, 'Centrocampista defensivo', '1996-11-23'),
+('Elias Hernández', 7, 'Extremo derecho', '1988-04-29'),
+('Ángel Mena', 7, 'Extremo derecho', '1988-01-21'),
+('Jorge Díaz', 7, 'Mediocentro ofensivo', '1998-05-14'),
+('Federico Viñas', 7, 'Delantero centro', '1998-06-30'),
+('Nicolás López', 7, 'Delantero centro', '1993-10-16'),
+('Brian Rubio', 7, 'Delantero centro', '1996-11-09'),
+('José Alvarado', 7, 'Delantero', '2000-03-30');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Ricardo Gutiérrez', 8, 'Portero', '1997-06-17'),
+('Hugo González', 8, 'Portero', '1990-08-01'),
+('Brian Betancourt', 8, 'Portero', '2004-01-30'),
+('Lucas Merolla', 8, 'Defensa central', '1995-06-27'),
+('Facundo Almada', 8, 'Defensa central', '1998-07-10'),
+('Jair Díaz', 8, 'Lateral izquierdo', '1998-08-21'),
+('Bryan Colula', 8, 'Lateral derecho', '1996-04-06'),
+('Salvador Rodríguez', 8, 'Lateral izquierdo', '2001-08-06'),
+('José Esquivel', 8, 'Defensa central', '1998-01-07'),
+('Ventura Alvarado', 8, 'Defensa central', '1992-08-16'),
+('Roberto Meraz', 8, 'Pivote', '1999-08-04'),
+('Jefferson Intriago', 8, 'Pivote', '1996-06-04'),
+('Rodolfo Pizarro', 8, 'Mediocentro ofensivo', '1994-02-15'),
+('Anderson Duarte', 8, 'Extremo izquierdo', '2004-03-23'),
+('Luis Amarilla', 8, 'Delantero centro', '1995-08-25'),
+('Yostin Valadez', 8, 'Delantero centro', '2001-09-12');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Ezequiel Unsain', 10, 'Portero', '1995-03-09'),
+('Emiliano Pérez', 10, 'Portero', '2003-06-21'),
+('Luis Jiménez', 10, 'Portero', '2004-08-27'),
+('Agustín Oliveros', 10, 'Defensa central', '1998-08-17'),
+('Alexis Peña', 10, 'Defensa central', '1996-01-13'),
+('Alejandro Mayorga', 10, 'Lateral izquierdo', '1997-05-29'),
+('Jesús Alcántar', 10, 'Defensa central', '2003-07-30'),
+('Alfredo Gutiérrez', 10, 'Defensa central', '2003-04-25'),
+('Raúl Sandoval', 10, 'Lateral izquierdo', '1999-06-05'),
+('Emilio Martínez', 10, 'Lateral derecho', '2003-02-02'),
+('Emilio Lara', 10, 'Lateral derecho', '2002-05-18'),
+('Alán Montes', 10, 'Defensa central', '2001-04-19'),
+('Fernando Arce', 10, 'Pivote', '1995-11-27'),
+('Diego De Buen', 10, 'Mediocentro', '1991-03-03'),
+('Pável Pérez', 10, 'Mediocentro ofensivo', '1998-04-14'),
+('José Paradela', 10, 'Mediocentro ofensivo', '1998-12-15'),
+('Kevin Rosero', 10, 'Extremo derecho', '1997-07-14'),
+('Arturo Palma', 10, 'Extremo izquierdo', '2001-09-22'),
+('Rogelio Cortéz', 10, 'Delantero centro', '2003-11-05');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Carlos Moreno', 11, 'Portero', '1998-01-29'),
+('Oscar Ustari', 11, 'Portero', '1986-07-03'),
+('Gustavo Cabral', 11, 'Defensa central', '1985-10-14'),
+('José Castillo', 11, 'Lateral izquierdo', '2001-12-02'),
+('Bryan González', 11, 'Lateral derecho', '2003-04-10'),
+('Miguel Rodríguez', 11, 'Defensa central', '1999-05-15'),
+('Pedro Pedraza', 11, 'Lateral derecho', '2000-03-17'),
+('Luis Chávez', 11, 'Mediocentro', '1996-01-15'),
+('Erick Sánchez', 11, 'Mediocentro ofensivo', '1999-09-27'),
+('Javier López', 11, 'Mediapunta', '1994-09-17'),
+('Jorge Berlanga', 11, 'Pivote', '2001-08-09'),
+('Illian Hernández', 11, 'Delantero centro', '2000-10-08'),
+('Oussama Idrissi', 11, 'Extremo izquierdo', '1996-02-26'),
+('Nelson Deossa', 11, 'Extremo derecho', '1999-11-18'),
+('Sergio Aguayo', 11, 'Delantero centro', '1998-07-06');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Jesús Rodríguez', 12, 'Portero', '1993-03-23'),
+('Iván Lajud', 12, 'Portero', '1993-04-05'),
+('Brayan Angulo', 12, 'Defensa central', '1989-07-19'),
+('Gustavo Ferrareis', 12, 'Lateral derecho', '1992-01-10'),
+('Luis García', 12, 'Lateral izquierdo', '1998-06-27'),
+('Diego de Buen', 12, 'Defensa central', '1991-01-03'),
+('Emmanuel Gularte', 12, 'Defensa central', '1997-09-30'),
+('Federico Mancuello', 12, 'Mediocentro', '1989-03-26'),
+('Luis Noriega', 12, 'Pivote', '1990-09-16'),
+('Alberto Herrera', 12, 'Mediocentro ofensivo', '2001-11-20'),
+('Kevin Velasco', 12, 'Extremo izquierdo', '1997-06-01'),
+('Martín Barragán', 12, 'Delantero centro', '1991-07-14'),
+('Guillermo Martínez', 12, 'Delantero centro', '1995-03-15'),
+('Amaury Escoto', 12, 'Delantero centro', '1993-03-15'),
+('Sebastián Martínez', 12, 'Delantero', '2004-05-05');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Álex Padilla', 13, 'Portero', '2003-01-01'),
+('Pablo Lara', 13, 'Portero', '2005-01-01'),
+('Miguel Ángel Paul Hernández', 13, 'Portero', '2003-01-01'),
+('Nathan Silva', 13, 'Defensa central', '1997-01-01'),
+('Lisandro Magallán', 13, 'Defensa central', '1993-01-01'),
+('José Galindo', 13, 'Defensa central', '1997-01-01'),
+('Rubén Duarte', 13, 'Lateral izquierdo', '1995-01-01'),
+('Robert Ergas', 13, 'Lateral izquierdo', '1997-01-01'),
+('Pablo Monroy', 13, 'Lateral derecho', '2001-01-01'),
+('Pablo Bennevendo', 13, 'Lateral derecho', '1999-01-01'),
+('Ulises Rivas', 13, 'Mediocentro', '1995-01-01'),
+('Santiago Trigos', 13, 'Mediocentro', '2001-01-01'),
+('José Caicedo', 13, 'Mediocentro defensivo', '2000-01-01'),
+('Piero Quispe', 13, 'Mediocentro ofensivo', '2001-01-01'),
+('Adalberto Carrasquilla', 13, 'Mediocentro', '1998-01-01'),
+('Rodrigo López', 13, 'Mediocentro', '2001-01-01'),
+('Leonardo Suárez', 13, 'Extremo derecho', '1996-01-01'),
+('Jorge Ruvalcaba', 13, 'Extremo izquierdo', '2001-01-01'),
+('Ángel Azuaje', 13, 'Delantero centro', '2003-01-01'),
+('Sebastián Venegas', 13, 'Delantero centro', '2005-01-01');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Guillermo Allison', 14, 'Portero', '1990-09-25'),
+('Jorge Hernández', 14, 'Portero', '1998-12-07'),
+('Carlos Higuera', 14, 'Portero', '2000-11-18'),
+('José Canale', 14, 'Defensa central', '1996-07-20'),
+('Óscar Manzanárez', 14, 'Defensa central', '1995-04-24'),
+('Franco Russo', 14, 'Defensa central', '1994-10-25'),
+('Fernando Piñuelas', 14, 'Defensa central', '1998-03-27'),
+('Francisco Venegas', 14, 'Lateral izquierdo', '1998-07-16'),
+('Pablo Ortiz', 14, 'Lateral izquierdo', '2002-04-05'),
+('Jaime Gómez', 14, 'Lateral derecho', '1993-07-17'),
+('Aldahir Pérez', 14, 'Mediocentro', '2004-03-13'),
+('Diego Araujo', 14, 'Mediocentro', '2002-01-01'),
+('Rodrigo Bogarín', 14, 'Mediocentro ofensivo', '1997-01-01'),
+('Lucas Rodríguez', 14, 'Mediocentro', '1997-01-01'),
+('Alan Medina', 14, 'Mediocentro', '1997-01-01'),
+('Víctor López', 14, 'Mediocentro', '1997-01-01'),
+('Pablo Barrera', 14, 'Delantero', '1987-06-21'),
+('Ronaldo Cisneros', 14, 'Delantero centro', '1997-01-01'),
+('Daniel López', 14, 'Delantero centro', '1999-01-01'),
+('Antonio De María', 14, 'Delantero centro', '2003-01-01');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Carlos Acevedo', 15, 'Portero', '1996-04-19'),
+('Héctor Holguín', 15, 'Portero', '2001-04-24'),
+('Bruno Amione', 15, 'Defensa central', '2002-01-03'),
+('Anderson Santamaría', 15, 'Defensa central', '1992-01-10'),
+('Emmanuel Echeverría', 15, 'Lateral izquierdo', '2003-09-08'),
+('José Abella', 15, 'Lateral derecho', '1994-02-10'),
+('Ismael Govea', 15, 'Lateral derecho', '1997-01-20'),
+('Pedro Aquino', 15, 'Pivote', '1995-04-13'),
+('Salvador Mariscal', 15, 'Mediocentro', '2002-03-15'),
+('Santiago Naveda', 15, 'Mediocentro', '2001-04-16'),
+('Aldo López', 15, 'Mediocentro', '2000-07-12'),
+('Javier Güémez', 15, 'Pivote', '1991-10-17'),
+('Diego Medina', 15, 'Extremo derecho', '2001-03-15'),
+('Cristian Dájome', 15, 'Extremo izquierdo', '1994-01-03'),
+('Fran Villalba', 15, 'Mediocentro ofensivo', '1997-05-11'),
+('Ramiro Sordo', 15, 'Extremo izquierdo', '2000-06-25'),
+('Santiago Muñoz', 15, 'Delantero centro', '2002-08-14'),
+('Choco Lozano', 15, 'Delantero centro', '1993-04-25');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Antonio Rodríguez', 17, 'Portero', '1992-07-04'),
+('Miguel Ortega', 17, 'Portero', '1995-04-13'),
+('José Corona', 17, 'Portero', '1981-01-26'),
+('Rafael Fernández', 17, 'Defensa central', '2000-08-05'),
+('Jackson Porozo', 17, 'Defensa central', '2000-08-04'),
+('Jesús Vega', 17, 'Lateral izquierdo', '1999-03-18'),
+('Aarón Mejía', 17, 'Lateral derecho', '2001-06-06'),
+('Joaquín Fernández', 17, 'Defensa central', '1999-01-22'),
+('Ramiro Franco', 17, 'Defensa central', '2003-10-25'),
+('Jesús Gómez', 17, 'Defensa central', '2002-01-31'),
+('Unai Bilbao', 17, 'Defensa central', '1994-02-04'),
+('Nicolás Díaz', 17, 'Defensa central', '1999-05-20'),
+('Kevin Balanta', 17, 'Defensa central', '1997-04-28'),
+('Joe Corona', 17, 'Mediocentro', '1990-07-09'),
+('Jhojan Julio', 17, 'Mediocentro ofensivo', '1998-02-11'),
+('Fernando Madrigal', 17, 'Mediocentro', '1991-11-12'),
+('Efraín Álvarez', 17, 'Mediocentro ofensivo', '2002-06-19'),
+('Christian Rivera', 17, 'Mediocentro defensivo', '1996-01-14'),
+('Ramiro Árciga', 17, 'Mediocentro ofensivo', '2004-08-30'),
+('Shamar Nicholson', 17, 'Delantero centro', '1997-03-16'),
+('Kevin Castañeda', 17, 'Delantero centro', '1995-10-28'),
+('José Raúl Zúñiga', 17, 'Delantero centro', '1995-04-01');
+INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
+('Pau López', 18, 'Portero', '1994-12-13'),
+('Luis García', 18, 'Portero', '1992-12-31'),
+('Ronaldo Beltrán', 18, 'Portero', '2002-03-28'),
+('Antonio Briseño', 18, 'Defensa central', '1994-02-05'),
+('Bruno Méndez', 18, 'Defensa central', '1999-09-10'),
+('Federico Pereira', 18, 'Defensa central', '2000-02-24'),
+('Luan García', 18, 'Defensa central', '1993-05-10'),
+('Jesús Gallardo', 18, 'Lateral izquierdo', '1994-08-15'),
+('Brian García', 18, 'Lateral derecho', '1997-10-31'),
+('Diego Barbosa', 18, 'Lateral derecho', '1996-09-25'),
+('Everardo López', 18, 'Defensa central', '2005-03-23'),
+('Emiliano Freyfeld', 18, 'Defensa central', '2004-03-16'),
+('Nico Carrera', 18, 'Defensa central', '2002-05-06'),
+('Abraham Villegas', 18, 'Lateral izquierdo', '2002-12-17'),
+('Juan Carrera', 18, 'Defensa central', '2002-05-06'),
+('Héctor Herrera', 18, 'Mediocentro', '1990-04-19'),
+('Marcel Ruiz', 18, 'Mediocentro', '2000-10-26'),
+('Frankie Amaya', 18, 'Mediocentro', '2000-09-26'),
+('Víctor Arteaga', 18, 'Pivote', '2004-02-26'),
+('Franco Romero', 18, 'Mediocentro', '2000-04-23'),
+('Juan Domínguez', 18, 'Extremo derecho', '1998-10-30'),
+('Jesús Angulo', 18, 'Mediocentro ofensivo', '1997-02-20'),
+('Wanderson', 18, 'Mediocentro', '2004-04-14'),
+('Helinho', 18, 'Extremo derecho', '2000-04-25'),
+('Alexis Vega', 18, 'Extremo izquierdo', '1997-11-25'),
+('Robert Morales', 18, 'Delantero centro', '1999-03-17'),
+('Paulinho', 18, 'Delantero centro', '1992-11-09'),
+('Edgar López', 18, 'Delantero centro', '1999-04-21'),
+('Isaías Violante', 18, 'Extremo izquierdo', '2003-10-20');
+
+Select * from jugadores; 
+
+
+-- 5. Tabla Partidos
+CREATE TABLE partidos (
+    id_partido INT PRIMARY KEY AUTO_INCREMENT,
+    id_equipo_local INT,
+    id_equipo_visitante INT,
+    fecha DATETIME,
+    goles_local INT,
+    goles_visitante INT,
+    FOREIGN KEY (id_equipo_local) REFERENCES equipos(id_equipo),
+    FOREIGN KEY (id_equipo_visitante) REFERENCES equipos(id_equipo)
+);
+-- Jornada 1
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(14, 1, '2025-01-10 19:00:00', 0, 1),  -- Querétaro vs América
+(8, 6, '2025-01-10 21:00:00', 1, 1),   -- Mazatlán vs Juárez
+(17, 18, '2025-01-10 23:00:00', 2, 4), -- Tijuana vs Toluca
+(3, 16, '2025-01-11 17:00:00', 1, 3),  -- Atlético San Luis vs Tigres UANL
+(5, 15, '2025-01-11 19:00:00', 1, 0),  -- Guadalajara vs Santos Laguna
+(4, 2, '2025-01-11 21:00:00', 1, 1),   -- Cruz Azul vs Atlas
+(13, 10, '2025-01-12 12:00:00', 2, 1), -- Pumas UNAM vs Necaxa
+(9, 12, '2025-01-12 19:00:00', 1, 1),  -- Monterrey vs Puebla
+(11, 7, '2025-02-05 21:00:00', 1, 2);  -- Pachuca vs León
+
+-- Jornada 2
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(1, 17, '2025-01-16 20:10:00', 1, 1),  -- América vs Tijuana
+(12, 3, '2025-01-17 19:00:00', 1, 2),  -- Puebla vs Atlético San Luis
+(16, 8, '2025-01-17 19:00:00', 2, 1),  -- Tigres UANL vs Mazatlán
+(10, 5, '2025-01-17 21:05:00', 3, 2),  -- Necaxa vs Guadalajara
+(6, 4, '2025-01-18 17:00:00', 1, 0),   -- Juárez vs Cruz Azul
+(18, 9, '2025-01-18 19:00:00', 1, 1),  -- Toluca vs Monterrey
+(2, 7, '2025-01-18 21:00:00', 1, 2),   -- Atlas vs León
+(14, 15, '2025-01-19 18:00:00', 3, 2); -- Querétaro vs Santos Laguna
+
+-- Jornada 3
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(3, 1, '2025-01-24 19:00:00', 0, 2),   -- Atlético San Luis vs América
+(17, 12, '2025-01-24 21:00:00', 1, 1), -- Tijuana vs Puebla
+(8, 10, '2025-01-25 17:00:00', 2, 2),  -- Mazatlán vs Necaxa
+(5, 16, '2025-01-25 19:00:00', 1, 3),  -- Guadalajara vs Tigres UANL
+(4, 14, '2025-01-25 21:00:00', 2, 0),  -- Cruz Azul vs Querétaro
+(9, 13, '2025-01-26 12:00:00', 1, 1),  -- Monterrey vs Pumas UNAM
+(7, 6, '2025-01-26 17:00:00', 3, 1),   -- León vs Juárez
+(15, 2, '2025-01-26 19:00:00', 0, 1);  -- Santos Laguna vs Atlas
+
+-- Jornada 4
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(1, 12, '2025-01-28 19:00:00', 3, 0),  -- América vs Puebla
+(10, 3, '2025-01-28 21:00:00', 2, 1),  -- Necaxa vs Atlético San Luis
+(14, 8, '2025-01-29 19:00:00', 1, 1),  -- Querétaro vs Mazatlán
+(16, 17, '2025-01-29 21:00:00', 4, 0), -- Tigres UANL vs Tijuana
+(13, 5, '2025-01-29 19:00:00', 2, 2),  -- Pumas UNAM vs Guadalajara
+(6, 9, '2025-01-29 21:00:00', 0, 1),   -- Juárez vs Monterrey
+(2, 18, '2025-01-29 19:00:00', 1, 3),  -- Atlas vs Toluca
+(7, 15, '2025-01-29 21:00:00', 2, 2);  -- León vs Santos Laguna
+
+-- Jornada 5
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(8, 7, '2025-01-31 19:00:00', 1, 2),   -- Mazatlán vs León
+(17, 4, '2025-01-31 21:05:00', 2, 3),  -- Tijuana vs Cruz Azul
+(1, 6, '2025-02-01 17:00:00', 4, 0),   -- América vs Juárez
+(5, 14, '2025-02-01 17:05:00', 1, 1),  -- Guadalajara vs Querétaro
+(11, 2, '2025-02-01 19:00:00', 0, 0),  -- Pachuca vs Atlas
+(9, 10, '2025-02-01 19:05:00', 1, 0),  -- Monterrey vs Necaxa
+(18, 16, '2025-02-01 21:15:00', 1, 0), -- Toluca vs Tigres UANL
+(15, 12, '2025-02-02 17:00:00', 0, 2), -- Santos Laguna vs Puebla
+(3, 13, '2025-02-02 19:00:00', 2, 3);  -- Atlético San Luis vs Pumas UNAM
+
+-- Jornada 6
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(1, 2, '2025-02-07 19:00:00', 2, 1),   -- América vs Atlas
+(3, 4, '2025-02-07 21:00:00', 1, 1),   -- Atlético San Luis vs Cruz Azul
+(5, 6, '2025-02-08 17:00:00', 0, 0),   -- Guadalajara vs Juárez
+(7, 8, '2025-02-08 19:00:00', 3, 2),   -- León vs Mazatlán
+(9, 10, '2025-02-08 21:00:00', 1, 0),  -- Monterrey vs Necaxa
+(11, 12, '2025-02-09 12:00:00', 2, 2), -- Pachuca vs Puebla
+(13, 14, '2025-02-09 17:00:00', 1, 1), -- Pumas UNAM vs Querétaro
+(15, 16, '2025-02-09 19:00:00', 0, 2), -- Santos Laguna vs Tigres UANL
+(17, 18, '2025-02-10 20:00:00', 1, 3); -- Tijuana vs Toluca
+
+-- Jornada 7
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(2, 3, '2025-02-14 19:00:00', 1, 2),   -- Atlas vs Atlético San Luis
+(4, 5, '2025-02-14 21:00:00', 0, 1),   -- Cruz Azul vs Guadalajara
+(6, 7, '2025-02-15 17:00:00', 2, 2),   -- Juárez vs León
+(8, 9, '2025-02-15 19:00:00', 1, 1),   -- Mazatlán vs Monterrey
+(10, 11, '2025-02-15 21:00:00', 0, 0), -- Necaxa vs Pachuca
+(12, 13, '2025-02-16 12:00:00', 3, 2), -- Puebla vs Pumas UNAM
+(14, 15, '2025-02-16 17:00:00', 1, 0), -- Querétaro vs Santos Laguna
+(16, 17, '2025-02-16 19:00:00', 2, 1), -- Tigres UANL vs Tijuana
+(18, 1, '2025-02-17 20:00:00', 1, 2);  -- Toluca vs América
+
+-- Jornada 8
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(3, 4, '2025-02-21 19:00:00', 2, 2),   -- Atlético San Luis vs Cruz Azul
+(5, 6, '2025-02-21 21:00:00', 1, 0),   -- Guadalajara vs Juárez
+(7, 8, '2025-02-22 17:00:00', 3, 1),   -- León vs Mazatlán
+(9, 10, '2025-02-22 19:00:00', 2, 1),  -- Monterrey vs Necaxa
+(11, 12, '2025-02-22 21:00:00', 0, 0), -- Pachuca vs Puebla
+(13, 14, '2025-02-23 12:00:00', 1, 1), -- Pumas UNAM vs Querétaro
+(15, 16, '2025-02-23 17:00:00', 0, 2), -- Santos Laguna vs Tigres UANL
+(17, 18, '2025-02-23 19:00:00', 1, 3), -- Tijuana vs Toluca
+(1, 2, '2025-02-24 20:00:00', 2, 2);   -- América vs Atlas
+
+-- Jornada 9
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(4, 5, '2025-02-28 19:00:00', 1, 1),   -- Cruz Azul vs Guadalajara
+(6, 7, '2025-02-28 21:00:00', 0, 2),   -- Juárez vs León
+(8, 9, '2025-03-01 17:00:00', 1, 1),   -- Mazatlán vs Monterrey
+(10, 11, '2025-03-01 19:00:00', 2, 2), -- Necaxa vs Pachuca
+(12, 13, '2025-03-01 21:00:00', 3, 3), -- Puebla vs Pumas UNAM
+(14, 15, '2025-03-02 12:00:00', 1, 0), -- Querétaro vs Santos Laguna
+(16, 17, '2025-03-02 17:00:00', 2, 1), -- Tigres UANL vs Tijuana
+(8, 9, '2025-02-25 21:00:00', 1, 3);   -- Mazatlán vs Monterrey
+
+-- Jornada 10
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(8, 4, '2025-02-28 21:00:00', 1, 1),   -- Mazatlán vs Cruz Azul
+(6, 11, '2025-03-01 17:00:00', 2, 2),  -- FC Juárez vs Pachuca
+(1, 18, '2025-03-01 17:00:00', 3, 0),  -- América vs Toluca
+(7, 17, '2025-03-01 19:00:00', 2, 1),  -- León vs Tijuana
+(10, 16, '2025-03-01 19:00:00', 1, 2), -- Necaxa vs Tigres
+(13, 5, '2025-03-01 21:10:00', 0, 1),  -- Pumas UNAM vs Guadalajara
+(14, 12, '2025-03-02 16:00:00', 2, 0), -- Querétaro vs Puebla
+(2, 3, '2025-03-02 18:00:00', 3, 1);   -- Atlas vs Atlético San Luis
+
+-- Jornada 11
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(16, 14, '2025-03-07 19:00:00', 1, 0), -- Tigres vs Querétaro
+(3, 6, '2025-03-07 19:00:00', 1, 0),   -- Atlético San Luis vs FC Juárez
+(12, 13, '2025-03-07 21:00:00', 1, 3), -- Puebla vs Pumas UNAM
+(18, 10, '2025-03-08 17:00:00', 5, 2), -- Toluca vs Necaxa
+(11, 8, '2025-03-08 19:00:00', 1, 1),  -- Pachuca vs Mazatlán
+(4, 9, '2025-03-08 19:05:00', 1, 1),   -- Cruz Azul vs Monterrey
+(5, 1, '2025-03-08 21:05:00', 0, 0),   -- Guadalajara vs América
+(15, 7, '2025-03-09 17:00:00', 2, 1),  -- Santos Laguna vs León
+(17, 2, '2025-03-09 19:00:00', 3, 4);  -- Tijuana vs Atlas
+
+-- Jornada 12
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(14, 8, '2025-03-14 19:00:00', 2, 2),  -- Querétaro vs Mazatlán
+(10, 7, '2025-03-14 19:00:00', 1, 2),  -- Necaxa vs León
+(12, 18, '2025-03-14 21:05:00', 1, 3), -- Puebla vs Toluca
+(16, 15, '2025-03-15 17:00:00', 2, 1), -- Tigres vs Santos Laguna
+(4, 3, '2025-03-15 19:00:00', 3, 2),   -- Cruz Azul vs Atlético San Luis
+(6, 5, '2025-03-15 18:05:00', 1, 1),   -- FC Juárez vs Guadalajara
+(2, 1, '2025-03-15 20:05:00', 0, 2),   -- Atlas vs América
+(13, 9, '2025-03-16 17:00:00', 1, 2),  -- Pumas UNAM vs Monterrey
+(17, 11, '2025-03-16 19:00:00', 0, 1); -- Tijuana vs Pachuca
+
+-- Jornada 13
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(10, 14, '2025-03-28 19:00:00', 2, 0), -- Necaxa vs Querétaro
+(8, 2, '2025-03-28 21:00:00', 1, 2),   -- Mazatlán vs Atlas
+(6, 12, '2025-03-29 17:00:00', 2, 1),  -- FC Juárez vs Puebla
+(18, 11, '2025-03-29 17:00:00', 1, 1), -- Toluca vs Pachuca
+(1, 16, '2025-03-29 19:05:00', 3, 2),  -- América vs Tigres
+(5, 4, '2025-03-29 21:05:00', 0, 1),   -- Guadalajara vs Cruz Azul
+(9, 17, '2025-03-29 21:10:00', 3, 0),  -- Monterrey vs Tijuana
+(15, 3, '2025-03-30 17:00:00', 2, 1),  -- Santos Laguna vs Atlético San Luis
+(7, 13, '2025-03-30 19:05:00', 1, 2);  -- León vs Pumas UNAM
+
+-- Jornada 14
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(14, 7, '2025-04-04 19:00:00', 1, 1),  -- Querétaro vs León
+(17, 10, '2025-04-04 21:00:00', 1, 2), -- Tijuana vs Necaxa
+(12, 16, '2025-04-05 17:00:00', 0, 0), -- Puebla vs Tigres
+(11, 1, '2025-04-05 19:00:00', 1, 0),  -- Pachuca vs América
+(2, 6, '2025-04-05 21:00:00', 1, 1),   -- Atlas vs FC Juárez
+(3, 8, '2025-04-05 21:00:00', 2, 1),   -- Atlético San Luis vs Mazatlán
+(9, 5, '2025-04-05 21:10:00', 3, 1),   -- Monterrey vs Guadalajara
+(4, 13, '2025-04-06 17:00:00', 3, 2),  -- Cruz Azul vs Pumas UNAM
+(18, 15, '2025-04-06 19:00:00', 2, 1); -- Toluca vs Santos Laguna
+
+-- Jornada 15
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(17, 3, '2025-04-10 21:00:00', 2, 1),  -- Tijuana vs Atlético San Luis
+(10, 11, '2025-04-11 19:00:00', 3, 5), -- Necaxa vs Pachuca
+(8, 5, '2025-04-11 21:00:00', 1, 1),   -- Mazatlán vs Guadalajara
+(13, 6, '2025-04-12 17:00:00', 0, 0),  -- Pumas UNAM vs FC Juárez
+(7, 12, '2025-04-12 19:00:00', 1, 0),  -- León vs Puebla
+(16, 9, '2025-04-12 19:00:00', 2, 1),  -- Tigres vs Monterrey
+(2, 18, '2025-04-12 21:00:00', 2, 3),  -- Atlas vs Toluca
+(1, 4, '2025-04-12 21:05:00', 0, 0),   -- América vs Cruz Azul
+(15, 14, '2025-04-13 17:00:00', 1, 2); -- Santos Laguna vs Querétaro
+
+-- Jornada 16
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(11, 16, '2025-04-15 19:00:00', 1, 1), -- Pachuca vs Tigres
+(5, 12, '2025-04-15 19:05:00', 2, 0),  -- Guadalajara vs Puebla
+(6, 10, '2025-04-15 21:00:00', 1, 2),  -- FC Juárez vs Necaxa
+(4, 7, '2025-04-15 21:05:00', 2, 2),   -- Cruz Azul vs León
+(14, 2, '2025-04-16 19:00:00', 1, 1),  -- Querétaro vs Atlas
+(9, 1, '2025-04-16 19:00:00', 2, 0),   -- Monterrey vs América
+(3, 18, '2025-04-16 20:00:00', 1, 2),  -- Atlético San Luis vs Toluca
+(8, 17, '2025-04-16 21:00:00', 0, 2),  -- Mazatlán vs Tijuana
+(13, 15, '2025-04-16 21:05:00', 2, 1); -- Pumas UNAM vs Santos Laguna
+
+-- Jornada 17
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
+(17, 10, '2025-04-18 19:00:00', 0, 1), -- Puebla vs Necaxa
+(1, 8, '2025-04-19 17:00:00', 5, 0),   -- América vs Mazatlán
+(6, 14, '2025-04-19 19:00:00', 0, 2),  -- FC Juárez vs Querétaro
+(18, 4, '2025-04-19 19:05:00', 2, 2),  -- Toluca vs Cruz Azul
+(16, 13, '2025-04-19 21:00:00', 2, 1), -- Tigres vs Pumas UNAM
+(2, 5, '2025-04-19 21:15:00', 1, 1),   -- Atlas vs Guadalajara
+(15, 17, '2025-04-20 17:00:00', 0, 4), -- Santos Laguna vs Tijuana
+(3, 11, '2025-04-20 19:00:00', 2, 1),  -- Atlético San Luis vs Pachuca
+(7, 9, '2025-04-20 19:05:00', 0, 2);   -- León vs Monterrey
+
+Select * from partidos; 
+
+-- 6. Tabla Estadísticas de Jugadores por Partido
+CREATE TABLE estadisticas_jugadores (
+    id_partido INT,
+    id_jugador INT,
+    goles INT DEFAULT 0,
+    asistencias INT DEFAULT 0,
+    tarjetas_amarillas INT DEFAULT 0,
+    tarjetas_rojas INT DEFAULT 0,
+    minutos_jugados INT DEFAULT 0,
+    PRIMARY KEY (id_partido, id_jugador),
+    FOREIGN KEY (id_partido) REFERENCES partidos(id_partido),
+    FOREIGN KEY (id_jugador) REFERENCES jugadores(id_jugador)
+);
+
+-- 7. Tabla Estadísticas Generales del Partido
+CREATE TABLE estadisticas_partido (
+    id_partido INT PRIMARY KEY,
+    corners_local INT DEFAULT 0,
+    corners_visitante INT DEFAULT 0,
+    faltas_local INT DEFAULT 0,
+    faltas_visitante INT DEFAULT 0,
+    tarjetas_amarillas_local INT DEFAULT 0,
+    tarjetas_amarillas_visitante INT DEFAULT 0,
+    tarjetas_rojas_local INT DEFAULT 0,
+    tarjetas_rojas_visitante INT DEFAULT 0,
+    FOREIGN KEY (id_partido) REFERENCES partidos(id_partido)
+);
+
+-- 8. Tabla Notificaciones (Para gestionar si un usuario ha sido notificado sobre partidos de sus equipos preferidos)
+CREATE TABLE notificaciones (
+    id_usuario INT,
+    id_partido INT,
+    notificado BOOLEAN,
+    PRIMARY KEY (id_usuario, id_partido),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_partido) REFERENCES partidos(id_partido)
+);
+
+-- 9. Vista Resumen de Jugador (Para obtener un resumen rápido de cuántos juegos ha jugado un jugador, goles y asistencias)
+CREATE VIEW resumen_jugador AS
+SELECT 
+    j.id_jugador,
+    j.nombre,
+    e.nombre AS equipo,
+    COUNT(sj.id_partido) AS partidos_jugados,
+    SUM(sj.goles) AS goles,
+    SUM(sj.asistencias) AS asistencias
+FROM jugadores j
+JOIN estadisticas_jugadores sj ON j.id_jugador = sj.id_jugador
+JOIN equipos e ON j.id_equipo = e.id_equipo
+GROUP BY j.id_jugador, e.nombre;
