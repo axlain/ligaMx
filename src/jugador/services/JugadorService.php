@@ -24,6 +24,12 @@ class JugadorService {
     public static function obtenerPorPosicion($posicion) {
         return Jugador::obtenerPorPosicion($posicion);
     }
+    public static function agregarJugador($nombre, $id_equipo, $posicion, $fecha_nacimiento) {
+        return Jugador::agregarJugador($nombre, $id_equipo, $posicion, $fecha_nacimiento);
+    } 
+    public static function actualizarJugador($id, $nombre, $id_equipo, $posicion, $fecha_nacimiento) {
+        return Jugador::actualizarJugador($id, $nombre, $id_equipo, $posicion, $fecha_nacimiento);
+    }
     
     
 }

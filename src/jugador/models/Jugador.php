@@ -72,7 +72,26 @@ class Jugador {
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public static function agregarJugador($nombre, $id_equipo, $posicion, $fecha_nacimiento) {
+        global $conn;
+        $sql = "INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento)
+                VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("siss", $nombre, $id_equipo, $posicion, $fecha_nacimiento);
+        return $stmt->execute();
+    }
     
+
+    public static function actualizarJugador($id, $nombre, $id_equipo, $posicion, $fecha_nacimiento) {
+        global $conn;
+        $sql = "UPDATE jugadores 
+                SET nombre = ?, id_equipo = ?, posicion = ?, fecha_nacimiento = ?
+                WHERE id_jugador = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sissi", $nombre, $id_equipo, $posicion, $fecha_nacimiento, $id);
+        return $stmt->execute();
+    }
+
     
 
 
