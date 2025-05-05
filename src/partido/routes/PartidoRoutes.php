@@ -13,7 +13,5 @@ if ($request_method === "GET" && $request_uri === '/api/ligamx/partido/obtenerTo
     $jornada = $matches[1];
     PartidoController::indexConEquiposPorJornada($jornada);
 }
-else {
-    header("HTTP/1.1 404 Not Found");
-}
+
 ?>

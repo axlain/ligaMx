@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../services/PartidoService.php'; ;
+require_once __DIR__ . '/../services/PartidoService.php';
+
 
 class PartidoController {
     public static function index() {

@@ -28,7 +28,5 @@ if ($request_method === "GET" && $request_uri === '/api/ligamx/jugador/obtenerTo
     JugadorController::update();
 }
 
-else {
-    header("HTTP/1.1 404 Not Found");
-}
+
 ?>
