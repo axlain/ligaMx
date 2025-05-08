@@ -2,8 +2,8 @@
 
 $host = 'localhost';
 $db_name = 'ligaMx';
-$username = 'integracion';
-$password = 'password';
+$username = 'root';
+$password = 'kaway123';
 
 $conn = new mysqli($host, $username, $password, $db_name);
 
