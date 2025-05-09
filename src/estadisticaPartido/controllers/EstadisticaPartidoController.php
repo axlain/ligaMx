@@ -33,31 +33,28 @@ class EstadisticaPartidoController {
 
 
     // FUNCIÓN PARA TOTALES (sumadas local + visitante)
-    public static function totalesPorEquipo($nombreEquipo) {
-        $nombreEquipo = strtolower($nombreEquipo);
+    public static function totalesPorEquipoInsensitive($nombreEquipo) {
+    $nombreEquipo = strtolower($nombreEquipo);
 
-        $totales = EstadisticaPartidoService::obtenerTotalesPorEquipo($nombreEquipo);
+    $totales = EstadisticaPartidoService::obtenerTotalesPorEquipoInsensitive($nombreEquipo);
 
-        header('Content-Type: application/xml');
+    header('Content-Type: application/xml');
 
-        $xml = new SimpleXMLElement('<totalesEquipo/>');
+    $xml = new SimpleXMLElement('<totalesEquipoInsensitive/>');
 
-        foreach ($totales as $key => $value) {
-            $xml->addChild($key, htmlspecialchars($value));
-        }
-
-        echo $xml->asXML();
+    foreach ($totales as $key => $value) {
+        $xml->addChild($key, htmlspecialchars($value));
     }
 
+    echo $xml->asXML();
+}
+
+
     public static function detallePorEquipo($nombreEquipo) {
-
         $nombreEquipo = strtolower($nombreEquipo);
-
         $detalles = EstadisticaPartidoService::obtenerDetallePorEquipo($nombreEquipo);
 
-
         header('Content-Type: application/xml');
-
         $xml = new SimpleXMLElement('<estadisticasEquipo/>');
         $partidosXml = $xml->addChild('partidos');
 
@@ -70,6 +67,7 @@ class EstadisticaPartidoController {
 
         echo $xml->asXML();
     }
+
     
     
 }

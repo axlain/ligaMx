@@ -10,13 +10,14 @@ if ($request_method === "GET" && $request_uri === '/api/ligamx/estadisticapartid
     $id = $matches[1];
     EstadisticaPartidoController::show($id);
 }
-else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticaPartido\/totales\/(.+)/', $request_uri, $matches)) {
-    $nombreEquipo = urldecode($matches[1]);
-    EstadisticaPartidoController::totalesPorEquipo($nombreEquipo);
+else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapartido\/totalesInsensitive\/([a-zA-Z]+)/', $request_uri, $matches)) {
+    $equipo = $matches[1];
+    EstadisticaPartidoController::totalesPorEquipoInsensitive(urldecode($equipo));
 }
-else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticaPartido\/detalle\/(.+)/', $request_uri, $matches)) {
-    $nombreEquipo = urldecode($matches[1]);
-    EstadisticaPartidoController::detallePorEquipo($nombreEquipo);
+
+else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapartido\/detallePorEquipo\/([a-zA-Z]+)/', $request_uri, $matches)) {
+    $equipo = $matches[1];
+    EstadisticaPartidoController::detallePorEquipo(urldecode($equipo));
 }
 
 

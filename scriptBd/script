@@ -43,6 +43,7 @@ INSERT INTO equipos (nombre, logo_url, liga, pais) VALUES
 ('Tigres UANL', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\tigres.png', 'Liga MX', 'México'),
 ('Tijuana', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\tijuana.png', 'Liga MX', 'México'),
 ('Toluca', 'C:\\xampp\\htdocs\\ligamx\\src\\equipos\\img\\toluca.png', 'Liga MX', 'México');
+INSERT INTO equipos (nombre, logo_url, liga, pais) VALUES('Agentes libres', '', 'Agentes libres', 'Restos del mundo');
 Select * from equipos; 
 
 -- 3. Tabla Preferencias de los Usuarios
@@ -454,6 +455,7 @@ INSERT INTO jugadores (nombre, id_equipo, posicion, fecha_nacimiento) VALUES
 Select * from jugadores; 
 
 
+
 -- 5. Tabla Partidos
 CREATE TABLE partidos (
     id_partido INT PRIMARY KEY AUTO_INCREMENT,
@@ -462,209 +464,212 @@ CREATE TABLE partidos (
     fecha DATETIME,
     goles_local INT,
     goles_visitante INT,
+    jornada INT,  
     FOREIGN KEY (id_equipo_local) REFERENCES equipos(id_equipo),
     FOREIGN KEY (id_equipo_visitante) REFERENCES equipos(id_equipo)
 );
+
 -- Jornada 1
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(14, 1, '2025-01-10 19:00:00', 0, 1),  -- Querétaro vs América
-(8, 6, '2025-01-10 21:00:00', 1, 1),   -- Mazatlán vs Juárez
-(17, 18, '2025-01-10 23:00:00', 2, 4), -- Tijuana vs Toluca
-(3, 16, '2025-01-11 17:00:00', 1, 3),  -- Atlético San Luis vs Tigres UANL
-(5, 15, '2025-01-11 19:00:00', 1, 0),  -- Guadalajara vs Santos Laguna
-(4, 2, '2025-01-11 21:00:00', 1, 1),   -- Cruz Azul vs Atlas
-(13, 10, '2025-01-12 12:00:00', 2, 1), -- Pumas UNAM vs Necaxa
-(9, 12, '2025-01-12 19:00:00', 1, 1),  -- Monterrey vs Puebla
-(11, 7, '2025-02-05 21:00:00', 1, 2);  -- Pachuca vs León
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(14, 1, '2025-01-10 19:00:00', 0, 1,1),  -- Querétaro vs América
+(8, 6, '2025-01-10 21:00:00', 1, 1,1),   -- Mazatlán vs Juárez
+(17, 18, '2025-01-10 23:00:00', 2, 4,1), -- Tijuana vs Toluca
+(3, 16, '2025-01-11 17:00:00', 1, 3,1),  -- Atlético San Luis vs Tigres UANL
+(5, 15, '2025-01-11 19:00:00', 1, 0,1),  -- Guadalajara vs Santos Laguna
+(4, 2, '2025-01-11 21:00:00', 1, 1,1),   -- Cruz Azul vs Atlas
+(13, 10, '2025-01-12 12:00:00', 2, 1,1), -- Pumas UNAM vs Necaxa
+(9, 12, '2025-01-12 19:00:00', 1, 1,1),  -- Monterrey vs Puebla
+(11, 7, '2025-02-05 21:00:00', 1, 2,1);  -- Pachuca vs León
 
 -- Jornada 2
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(1, 17, '2025-01-16 20:10:00', 1, 1),  -- América vs Tijuana
-(12, 3, '2025-01-17 19:00:00', 1, 2),  -- Puebla vs Atlético San Luis
-(16, 8, '2025-01-17 19:00:00', 2, 1),  -- Tigres UANL vs Mazatlán
-(10, 5, '2025-01-17 21:05:00', 3, 2),  -- Necaxa vs Guadalajara
-(6, 4, '2025-01-18 17:00:00', 1, 0),   -- Juárez vs Cruz Azul
-(18, 9, '2025-01-18 19:00:00', 1, 1),  -- Toluca vs Monterrey
-(2, 7, '2025-01-18 21:00:00', 1, 2),   -- Atlas vs León
-(14, 15, '2025-01-19 18:00:00', 3, 2); -- Querétaro vs Santos Laguna
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(1, 17, '2025-01-16 20:10:00', 1, 1,2),  -- América vs Tijuana
+(12, 3, '2025-01-17 19:00:00', 1, 2,2),  -- Puebla vs Atlético San Luis
+(16, 8, '2025-01-17 19:00:00', 2, 1,2),  -- Tigres UANL vs Mazatlán
+(10, 5, '2025-01-17 21:05:00', 3, 2,2),  -- Necaxa vs Guadalajara
+(6, 4, '2025-01-18 17:00:00', 1, 0,2),   -- Juárez vs Cruz Azul
+(18, 9, '2025-01-18 19:00:00', 1, 1,2),  -- Toluca vs Monterrey
+(2, 7, '2025-01-18 21:00:00', 1, 2,2),   -- Atlas vs León
+(14, 15, '2025-01-19 18:00:00', 3, 2,2); -- Querétaro vs Santos Laguna
 
 -- Jornada 3
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(3, 1, '2025-01-24 19:00:00', 0, 2),   -- Atlético San Luis vs América
-(17, 12, '2025-01-24 21:00:00', 1, 1), -- Tijuana vs Puebla
-(8, 10, '2025-01-25 17:00:00', 2, 2),  -- Mazatlán vs Necaxa
-(5, 16, '2025-01-25 19:00:00', 1, 3),  -- Guadalajara vs Tigres UANL
-(4, 14, '2025-01-25 21:00:00', 2, 0),  -- Cruz Azul vs Querétaro
-(9, 13, '2025-01-26 12:00:00', 1, 1),  -- Monterrey vs Pumas UNAM
-(7, 6, '2025-01-26 17:00:00', 3, 1),   -- León vs Juárez
-(15, 2, '2025-01-26 19:00:00', 0, 1);  -- Santos Laguna vs Atlas
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(3, 1, '2025-01-24 19:00:00', 0, 2,3),   -- Atlético San Luis vs América
+(17, 12, '2025-01-24 21:00:00', 1, 1,3), -- Tijuana vs Puebla
+(8, 10, '2025-01-25 17:00:00', 2, 2,3),  -- Mazatlán vs Necaxa
+(5, 16, '2025-01-25 19:00:00', 1, 3,3),  -- Guadalajara vs Tigres UANL
+(4, 14, '2025-01-25 21:00:00', 2, 0,3),  -- Cruz Azul vs Querétaro
+(9, 13, '2025-01-26 12:00:00', 1, 1,3),  -- Monterrey vs Pumas UNAM
+(7, 6, '2025-01-26 17:00:00', 3, 1,3),   -- León vs Juárez
+(15, 2, '2025-01-26 19:00:00', 0, 1,3);  -- Santos Laguna vs Atlas
 
 -- Jornada 4
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(1, 12, '2025-01-28 19:00:00', 3, 0),  -- América vs Puebla
-(10, 3, '2025-01-28 21:00:00', 2, 1),  -- Necaxa vs Atlético San Luis
-(14, 8, '2025-01-29 19:00:00', 1, 1),  -- Querétaro vs Mazatlán
-(16, 17, '2025-01-29 21:00:00', 4, 0), -- Tigres UANL vs Tijuana
-(13, 5, '2025-01-29 19:00:00', 2, 2),  -- Pumas UNAM vs Guadalajara
-(6, 9, '2025-01-29 21:00:00', 0, 1),   -- Juárez vs Monterrey
-(2, 18, '2025-01-29 19:00:00', 1, 3),  -- Atlas vs Toluca
-(7, 15, '2025-01-29 21:00:00', 2, 2);  -- León vs Santos Laguna
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(1, 12, '2025-01-28 19:00:00', 3, 0,4),  -- América vs Puebla
+(10, 3, '2025-01-28 21:00:00', 2, 1,4),  -- Necaxa vs Atlético San Luis
+(14, 8, '2025-01-29 19:00:00', 1, 1,4),  -- Querétaro vs Mazatlán
+(16, 17, '2025-01-29 21:00:00', 4, 0,4), -- Tigres UANL vs Tijuana
+(13, 5, '2025-01-29 19:00:00', 2, 2,4),  -- Pumas UNAM vs Guadalajara
+(6, 9, '2025-01-29 21:00:00', 0, 1,4),   -- Juárez vs Monterrey
+(2, 18, '2025-01-29 19:00:00', 1, 3,4),  -- Atlas vs Toluca
+(7, 15, '2025-01-29 21:00:00', 2, 2,4);  -- León vs Santos Laguna
 
 -- Jornada 5
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(8, 7, '2025-01-31 19:00:00', 1, 2),   -- Mazatlán vs León
-(17, 4, '2025-01-31 21:05:00', 2, 3),  -- Tijuana vs Cruz Azul
-(1, 6, '2025-02-01 17:00:00', 4, 0),   -- América vs Juárez
-(5, 14, '2025-02-01 17:05:00', 1, 1),  -- Guadalajara vs Querétaro
-(11, 2, '2025-02-01 19:00:00', 0, 0),  -- Pachuca vs Atlas
-(9, 10, '2025-02-01 19:05:00', 1, 0),  -- Monterrey vs Necaxa
-(18, 16, '2025-02-01 21:15:00', 1, 0), -- Toluca vs Tigres UANL
-(15, 12, '2025-02-02 17:00:00', 0, 2), -- Santos Laguna vs Puebla
-(3, 13, '2025-02-02 19:00:00', 2, 3);  -- Atlético San Luis vs Pumas UNAM
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(8, 7, '2025-01-31 19:00:00', 1, 2,5),   -- Mazatlán vs León
+(17, 4, '2025-01-31 21:05:00', 2, 3,5),  -- Tijuana vs Cruz Azul
+(1, 6, '2025-02-01 17:00:00', 4, 0,5),   -- América vs Juárez
+(5, 14, '2025-02-01 17:05:00', 1, 1,5),  -- Guadalajara vs Querétaro
+(11, 2, '2025-02-01 19:00:00', 0, 0,5),  -- Pachuca vs Atlas
+(9, 10, '2025-02-01 19:05:00', 1, 0,5),  -- Monterrey vs Necaxa
+(18, 16, '2025-02-01 21:15:00', 1, 0,5), -- Toluca vs Tigres UANL
+(15, 12, '2025-02-02 17:00:00', 0, 2,5), -- Santos Laguna vs Puebla
+(3, 13, '2025-02-02 19:00:00', 2, 3,5);  -- Atlético San Luis vs Pumas UNAM
 
 -- Jornada 6
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(1, 2, '2025-02-07 19:00:00', 2, 1),   -- América vs Atlas
-(3, 4, '2025-02-07 21:00:00', 1, 1),   -- Atlético San Luis vs Cruz Azul
-(5, 6, '2025-02-08 17:00:00', 0, 0),   -- Guadalajara vs Juárez
-(7, 8, '2025-02-08 19:00:00', 3, 2),   -- León vs Mazatlán
-(9, 10, '2025-02-08 21:00:00', 1, 0),  -- Monterrey vs Necaxa
-(11, 12, '2025-02-09 12:00:00', 2, 2), -- Pachuca vs Puebla
-(13, 14, '2025-02-09 17:00:00', 1, 1), -- Pumas UNAM vs Querétaro
-(15, 16, '2025-02-09 19:00:00', 0, 2), -- Santos Laguna vs Tigres UANL
-(17, 18, '2025-02-10 20:00:00', 1, 3); -- Tijuana vs Toluca
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(1, 2, '2025-02-07 19:00:00', 2, 1,6),   -- América vs Atlas
+(3, 4, '2025-02-07 21:00:00', 1, 1,6),   -- Atlético San Luis vs Cruz Azul
+(5, 6, '2025-02-08 17:00:00', 0, 0,6),   -- Guadalajara vs Juárez
+(7, 8, '2025-02-08 19:00:00', 3, 2,6),   -- León vs Mazatlán
+(9, 10, '2025-02-08 21:00:00', 1, 0,6),  -- Monterrey vs Necaxa
+(11, 12, '2025-02-09 12:00:00', 2, 2,6), -- Pachuca vs Puebla
+(13, 14, '2025-02-09 17:00:00', 1, 1,6), -- Pumas UNAM vs Querétaro
+(15, 16, '2025-02-09 19:00:00', 0, 2,6), -- Santos Laguna vs Tigres UANL
+(17, 18, '2025-02-10 20:00:00', 1, 3,6); -- Tijuana vs Toluca
 
 -- Jornada 7
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(2, 3, '2025-02-14 19:00:00', 1, 2),   -- Atlas vs Atlético San Luis
-(4, 5, '2025-02-14 21:00:00', 0, 1),   -- Cruz Azul vs Guadalajara
-(6, 7, '2025-02-15 17:00:00', 2, 2),   -- Juárez vs León
-(8, 9, '2025-02-15 19:00:00', 1, 1),   -- Mazatlán vs Monterrey
-(10, 11, '2025-02-15 21:00:00', 0, 0), -- Necaxa vs Pachuca
-(12, 13, '2025-02-16 12:00:00', 3, 2), -- Puebla vs Pumas UNAM
-(14, 15, '2025-02-16 17:00:00', 1, 0), -- Querétaro vs Santos Laguna
-(16, 17, '2025-02-16 19:00:00', 2, 1), -- Tigres UANL vs Tijuana
-(18, 1, '2025-02-17 20:00:00', 1, 2);  -- Toluca vs América
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(2, 3, '2025-02-14 19:00:00', 1, 2,7),   -- Atlas vs Atlético San Luis
+(4, 5, '2025-02-14 21:00:00', 0, 1,7),   -- Cruz Azul vs Guadalajara
+(6, 7, '2025-02-15 17:00:00', 2, 2,7),   -- Juárez vs León
+(8, 9, '2025-02-15 19:00:00', 1, 1,7),   -- Mazatlán vs Monterrey
+(10, 11, '2025-02-15 21:00:00', 0, 0,7), -- Necaxa vs Pachuca
+(12, 13, '2025-02-16 12:00:00', 3, 2,7), -- Puebla vs Pumas UNAM
+(14, 15, '2025-02-16 17:00:00', 1, 0,7), -- Querétaro vs Santos Laguna
+(16, 17, '2025-02-16 19:00:00', 2, 1,7), -- Tigres UANL vs Tijuana
+(18, 1, '2025-02-17 20:00:00', 1, 2,7);  -- Toluca vs América
 
 -- Jornada 8
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(3, 4, '2025-02-21 19:00:00', 2, 2),   -- Atlético San Luis vs Cruz Azul
-(5, 6, '2025-02-21 21:00:00', 1, 0),   -- Guadalajara vs Juárez
-(7, 8, '2025-02-22 17:00:00', 3, 1),   -- León vs Mazatlán
-(9, 10, '2025-02-22 19:00:00', 2, 1),  -- Monterrey vs Necaxa
-(11, 12, '2025-02-22 21:00:00', 0, 0), -- Pachuca vs Puebla
-(13, 14, '2025-02-23 12:00:00', 1, 1), -- Pumas UNAM vs Querétaro
-(15, 16, '2025-02-23 17:00:00', 0, 2), -- Santos Laguna vs Tigres UANL
-(17, 18, '2025-02-23 19:00:00', 1, 3), -- Tijuana vs Toluca
-(1, 2, '2025-02-24 20:00:00', 2, 2);   -- América vs Atlas
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(3, 4, '2025-02-21 19:00:00', 2, 2,8),   -- Atlético San Luis vs Cruz Azul
+(5, 6, '2025-02-21 21:00:00', 1, 0,8),   -- Guadalajara vs Juárez
+(7, 8, '2025-02-22 17:00:00', 3, 1,8),   -- León vs Mazatlán
+(9, 10, '2025-02-22 19:00:00', 2, 1,8),  -- Monterrey vs Necaxa
+(11, 12, '2025-02-22 21:00:00', 0, 0,8), -- Pachuca vs Puebla
+(13, 14, '2025-02-23 12:00:00', 1, 1,8), -- Pumas UNAM vs Querétaro
+(15, 16, '2025-02-23 17:00:00', 0, 2,8), -- Santos Laguna vs Tigres UANL
+(17, 18, '2025-02-23 19:00:00', 1, 3,8), -- Tijuana vs Toluca
+(1, 2, '2025-02-24 20:00:00', 2, 2,8);   -- América vs Atlas
 
 -- Jornada 9
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(4, 5, '2025-02-28 19:00:00', 1, 1),   -- Cruz Azul vs Guadalajara
-(6, 7, '2025-02-28 21:00:00', 0, 2),   -- Juárez vs León
-(8, 9, '2025-03-01 17:00:00', 1, 1),   -- Mazatlán vs Monterrey
-(10, 11, '2025-03-01 19:00:00', 2, 2), -- Necaxa vs Pachuca
-(12, 13, '2025-03-01 21:00:00', 3, 3), -- Puebla vs Pumas UNAM
-(14, 15, '2025-03-02 12:00:00', 1, 0), -- Querétaro vs Santos Laguna
-(16, 17, '2025-03-02 17:00:00', 2, 1), -- Tigres UANL vs Tijuana
-(8, 9, '2025-02-25 21:00:00', 1, 3);   -- Mazatlán vs Monterrey
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(4, 5, '2025-02-28 19:00:00', 1, 1,9),   -- Cruz Azul vs Guadalajara
+(6, 7, '2025-02-28 21:00:00', 0, 2,9),   -- Juárez vs León
+(8, 9, '2025-03-01 17:00:00', 1, 1,9),   -- Mazatlán vs Monterrey
+(10, 11, '2025-03-01 19:00:00', 2, 2,9), -- Necaxa vs Pachuca
+(12, 13, '2025-03-01 21:00:00', 3, 3,9), -- Puebla vs Pumas UNAM
+(14, 15, '2025-03-02 12:00:00', 1, 0,9), -- Querétaro vs Santos Laguna
+(16, 17, '2025-03-02 17:00:00', 2, 1,9), -- Tigres UANL vs Tijuana
+(8, 9, '2025-02-25 21:00:00', 1, 3,9);   -- Mazatlán vs Monterrey
 
 -- Jornada 10
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(8, 4, '2025-02-28 21:00:00', 1, 1),   -- Mazatlán vs Cruz Azul
-(6, 11, '2025-03-01 17:00:00', 2, 2),  -- FC Juárez vs Pachuca
-(1, 18, '2025-03-01 17:00:00', 3, 0),  -- América vs Toluca
-(7, 17, '2025-03-01 19:00:00', 2, 1),  -- León vs Tijuana
-(10, 16, '2025-03-01 19:00:00', 1, 2), -- Necaxa vs Tigres
-(13, 5, '2025-03-01 21:10:00', 0, 1),  -- Pumas UNAM vs Guadalajara
-(14, 12, '2025-03-02 16:00:00', 2, 0), -- Querétaro vs Puebla
-(2, 3, '2025-03-02 18:00:00', 3, 1);   -- Atlas vs Atlético San Luis
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(8, 4, '2025-02-28 21:00:00', 1, 1,10),   -- Mazatlán vs Cruz Azul
+(6, 11, '2025-03-01 17:00:00', 2, 2,10),  -- FC Juárez vs Pachuca
+(1, 18, '2025-03-01 17:00:00', 3, 0,10),  -- América vs Toluca
+(7, 17, '2025-03-01 19:00:00', 2, 1,10),  -- León vs Tijuana
+(10, 16, '2025-03-01 19:00:00', 1, 2,10), -- Necaxa vs Tigres
+(13, 5, '2025-03-01 21:10:00', 0, 1,10),  -- Pumas UNAM vs Guadalajara
+(14, 12, '2025-03-02 16:00:00', 2, 0,10), -- Querétaro vs Puebla
+(2, 3, '2025-03-02 18:00:00', 3, 1,10);   -- Atlas vs Atlético San Luis
 
 -- Jornada 11
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(16, 14, '2025-03-07 19:00:00', 1, 0), -- Tigres vs Querétaro
-(3, 6, '2025-03-07 19:00:00', 1, 0),   -- Atlético San Luis vs FC Juárez
-(12, 13, '2025-03-07 21:00:00', 1, 3), -- Puebla vs Pumas UNAM
-(18, 10, '2025-03-08 17:00:00', 5, 2), -- Toluca vs Necaxa
-(11, 8, '2025-03-08 19:00:00', 1, 1),  -- Pachuca vs Mazatlán
-(4, 9, '2025-03-08 19:05:00', 1, 1),   -- Cruz Azul vs Monterrey
-(5, 1, '2025-03-08 21:05:00', 0, 0),   -- Guadalajara vs América
-(15, 7, '2025-03-09 17:00:00', 2, 1),  -- Santos Laguna vs León
-(17, 2, '2025-03-09 19:00:00', 3, 4);  -- Tijuana vs Atlas
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(16, 14, '2025-03-07 19:00:00', 1, 0,1), -- Tigres vs Querétaro
+(3, 6, '2025-03-07 19:00:00', 1, 0,11),   -- Atlético San Luis vs FC Juárez
+(12, 13, '2025-03-07 21:00:00', 1, 3,11), -- Puebla vs Pumas UNAM
+(18, 10, '2025-03-08 17:00:00', 5, 2,11), -- Toluca vs Necaxa
+(11, 8, '2025-03-08 19:00:00', 1, 1,11),  -- Pachuca vs Mazatlán
+(4, 9, '2025-03-08 19:05:00', 1, 1,11),   -- Cruz Azul vs Monterrey
+(5, 1, '2025-03-08 21:05:00', 0, 0,11),   -- Guadalajara vs América
+(15, 7, '2025-03-09 17:00:00', 2, 1,11),  -- Santos Laguna vs León
+(17, 2, '2025-03-09 19:00:00', 3, 4,11);  -- Tijuana vs Atlas
 
 -- Jornada 12
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(14, 8, '2025-03-14 19:00:00', 2, 2),  -- Querétaro vs Mazatlán
-(10, 7, '2025-03-14 19:00:00', 1, 2),  -- Necaxa vs León
-(12, 18, '2025-03-14 21:05:00', 1, 3), -- Puebla vs Toluca
-(16, 15, '2025-03-15 17:00:00', 2, 1), -- Tigres vs Santos Laguna
-(4, 3, '2025-03-15 19:00:00', 3, 2),   -- Cruz Azul vs Atlético San Luis
-(6, 5, '2025-03-15 18:05:00', 1, 1),   -- FC Juárez vs Guadalajara
-(2, 1, '2025-03-15 20:05:00', 0, 2),   -- Atlas vs América
-(13, 9, '2025-03-16 17:00:00', 1, 2),  -- Pumas UNAM vs Monterrey
-(17, 11, '2025-03-16 19:00:00', 0, 1); -- Tijuana vs Pachuca
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(14, 8, '2025-03-14 19:00:00', 2, 2,12),  -- Querétaro vs Mazatlán
+(10, 7, '2025-03-14 19:00:00', 1, 2,12),  -- Necaxa vs León
+(12, 18, '2025-03-14 21:05:00', 1, 3,12), -- Puebla vs Toluca
+(16, 15, '2025-03-15 17:00:00', 2, 1,12), -- Tigres vs Santos Laguna
+(4, 3, '2025-03-15 19:00:00', 3, 2,12),   -- Cruz Azul vs Atlético San Luis
+(6, 5, '2025-03-15 18:05:00', 1, 1,12),   -- FC Juárez vs Guadalajara
+(2, 1, '2025-03-15 20:05:00', 0, 2,12),   -- Atlas vs América
+(13, 9, '2025-03-16 17:00:00', 1, 2,12),  -- Pumas UNAM vs Monterrey
+(17, 11, '2025-03-16 19:00:00', 0, 1,12); -- Tijuana vs Pachuca
 
 -- Jornada 13
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(10, 14, '2025-03-28 19:00:00', 2, 0), -- Necaxa vs Querétaro
-(8, 2, '2025-03-28 21:00:00', 1, 2),   -- Mazatlán vs Atlas
-(6, 12, '2025-03-29 17:00:00', 2, 1),  -- FC Juárez vs Puebla
-(18, 11, '2025-03-29 17:00:00', 1, 1), -- Toluca vs Pachuca
-(1, 16, '2025-03-29 19:05:00', 3, 2),  -- América vs Tigres
-(5, 4, '2025-03-29 21:05:00', 0, 1),   -- Guadalajara vs Cruz Azul
-(9, 17, '2025-03-29 21:10:00', 3, 0),  -- Monterrey vs Tijuana
-(15, 3, '2025-03-30 17:00:00', 2, 1),  -- Santos Laguna vs Atlético San Luis
-(7, 13, '2025-03-30 19:05:00', 1, 2);  -- León vs Pumas UNAM
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(10, 14, '2025-03-28 19:00:00', 2, 0,13), -- Necaxa vs Querétaro
+(8, 2, '2025-03-28 21:00:00', 1, 2,13),   -- Mazatlán vs Atlas
+(6, 12, '2025-03-29 17:00:00', 2, 1,13),  -- FC Juárez vs Puebla
+(18, 11, '2025-03-29 17:00:00', 1, 1,13), -- Toluca vs Pachuca
+(1, 16, '2025-03-29 19:05:00', 3, 2,13),  -- América vs Tigres
+(5, 4, '2025-03-29 21:05:00', 0, 1,13),   -- Guadalajara vs Cruz Azul
+(9, 17, '2025-03-29 21:10:00', 3, 0,13),  -- Monterrey vs Tijuana
+(15, 3, '2025-03-30 17:00:00', 2, 1,13),  -- Santos Laguna vs Atlético San Luis
+(7, 13, '2025-03-30 19:05:00', 1, 2,13);  -- León vs Pumas UNAM
 
 -- Jornada 14
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(14, 7, '2025-04-04 19:00:00', 1, 1),  -- Querétaro vs León
-(17, 10, '2025-04-04 21:00:00', 1, 2), -- Tijuana vs Necaxa
-(12, 16, '2025-04-05 17:00:00', 0, 0), -- Puebla vs Tigres
-(11, 1, '2025-04-05 19:00:00', 1, 0),  -- Pachuca vs América
-(2, 6, '2025-04-05 21:00:00', 1, 1),   -- Atlas vs FC Juárez
-(3, 8, '2025-04-05 21:00:00', 2, 1),   -- Atlético San Luis vs Mazatlán
-(9, 5, '2025-04-05 21:10:00', 3, 1),   -- Monterrey vs Guadalajara
-(4, 13, '2025-04-06 17:00:00', 3, 2),  -- Cruz Azul vs Pumas UNAM
-(18, 15, '2025-04-06 19:00:00', 2, 1); -- Toluca vs Santos Laguna
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(14, 7, '2025-04-04 19:00:00', 1, 1,14),  -- Querétaro vs León
+(17, 10, '2025-04-04 21:00:00', 1, 2,14), -- Tijuana vs Necaxa
+(12, 16, '2025-04-05 17:00:00', 0, 0,14), -- Puebla vs Tigres
+(11, 1, '2025-04-05 19:00:00', 1, 0,14),  -- Pachuca vs América
+(2, 6, '2025-04-05 21:00:00', 1, 1,14),   -- Atlas vs FC Juárez
+(3, 8, '2025-04-05 21:00:00', 2, 1,14),   -- Atlético San Luis vs Mazatlán
+(9, 5, '2025-04-05 21:10:00', 3, 1,14),   -- Monterrey vs Guadalajara
+(4, 13, '2025-04-06 17:00:00', 3, 2,14),  -- Cruz Azul vs Pumas UNAM
+(18, 15, '2025-04-06 19:00:00', 2, 1,14); -- Toluca vs Santos Laguna
 
 -- Jornada 15
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(17, 3, '2025-04-10 21:00:00', 2, 1),  -- Tijuana vs Atlético San Luis
-(10, 11, '2025-04-11 19:00:00', 3, 5), -- Necaxa vs Pachuca
-(8, 5, '2025-04-11 21:00:00', 1, 1),   -- Mazatlán vs Guadalajara
-(13, 6, '2025-04-12 17:00:00', 0, 0),  -- Pumas UNAM vs FC Juárez
-(7, 12, '2025-04-12 19:00:00', 1, 0),  -- León vs Puebla
-(16, 9, '2025-04-12 19:00:00', 2, 1),  -- Tigres vs Monterrey
-(2, 18, '2025-04-12 21:00:00', 2, 3),  -- Atlas vs Toluca
-(1, 4, '2025-04-12 21:05:00', 0, 0),   -- América vs Cruz Azul
-(15, 14, '2025-04-13 17:00:00', 1, 2); -- Santos Laguna vs Querétaro
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(17, 3, '2025-04-10 21:00:00', 2, 1,15),  -- Tijuana vs Atlético San Luis
+(10, 11, '2025-04-11 19:00:00', 3, 5,15), -- Necaxa vs Pachuca
+(8, 5, '2025-04-11 21:00:00', 1, 1,15),   -- Mazatlán vs Guadalajara
+(13, 6, '2025-04-12 17:00:00', 0, 0,15),  -- Pumas UNAM vs FC Juárez
+(7, 12, '2025-04-12 19:00:00', 1, 0,15),  -- León vs Puebla
+(16, 9, '2025-04-12 19:00:00', 2, 1,15),  -- Tigres vs Monterrey
+(2, 18, '2025-04-12 21:00:00', 2, 3,15),  -- Atlas vs Toluca
+(1, 4, '2025-04-12 21:05:00', 0, 0,15),   -- América vs Cruz Azul
+(15, 14, '2025-04-13 17:00:00', 1, 2,15); -- Santos Laguna vs Querétaro
 
 -- Jornada 16
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(11, 16, '2025-04-15 19:00:00', 1, 1), -- Pachuca vs Tigres
-(5, 12, '2025-04-15 19:05:00', 2, 0),  -- Guadalajara vs Puebla
-(6, 10, '2025-04-15 21:00:00', 1, 2),  -- FC Juárez vs Necaxa
-(4, 7, '2025-04-15 21:05:00', 2, 2),   -- Cruz Azul vs León
-(14, 2, '2025-04-16 19:00:00', 1, 1),  -- Querétaro vs Atlas
-(9, 1, '2025-04-16 19:00:00', 2, 0),   -- Monterrey vs América
-(3, 18, '2025-04-16 20:00:00', 1, 2),  -- Atlético San Luis vs Toluca
-(8, 17, '2025-04-16 21:00:00', 0, 2),  -- Mazatlán vs Tijuana
-(13, 15, '2025-04-16 21:05:00', 2, 1); -- Pumas UNAM vs Santos Laguna
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(11, 16, '2025-04-15 19:00:00', 1, 1,16), -- Pachuca vs Tigres
+(5, 12, '2025-04-15 19:05:00', 2, 0,16),  -- Guadalajara vs Puebla
+(6, 10, '2025-04-15 21:00:00', 1, 2,16),  -- FC Juárez vs Necaxa
+(4, 7, '2025-04-15 21:05:00', 2, 2,16),   -- Cruz Azul vs León
+(14, 2, '2025-04-16 19:00:00', 1, 1,16),  -- Querétaro vs Atlas
+(9, 1, '2025-04-16 19:00:00', 2, 0,16),   -- Monterrey vs América
+(3, 18, '2025-04-16 20:00:00', 1, 2,16),  -- Atlético San Luis vs Toluca
+(8, 17, '2025-04-16 21:00:00', 0, 2,16),  -- Mazatlán vs Tijuana
+(13, 15, '2025-04-16 21:05:00', 2, 1,16); -- Pumas UNAM vs Santos Laguna
 
 -- Jornada 17
-INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante) VALUES
-(17, 10, '2025-04-18 19:00:00', 0, 1), -- Puebla vs Necaxa
-(1, 8, '2025-04-19 17:00:00', 5, 0),   -- América vs Mazatlán
-(6, 14, '2025-04-19 19:00:00', 0, 2),  -- FC Juárez vs Querétaro
-(18, 4, '2025-04-19 19:05:00', 2, 2),  -- Toluca vs Cruz Azul
-(16, 13, '2025-04-19 21:00:00', 2, 1), -- Tigres vs Pumas UNAM
-(2, 5, '2025-04-19 21:15:00', 1, 1),   -- Atlas vs Guadalajara
-(15, 17, '2025-04-20 17:00:00', 0, 4), -- Santos Laguna vs Tijuana
-(3, 11, '2025-04-20 19:00:00', 2, 1),  -- Atlético San Luis vs Pachuca
-(7, 9, '2025-04-20 19:05:00', 0, 2);   -- León vs Monterrey
+INSERT INTO partidos (id_equipo_local, id_equipo_visitante, fecha, goles_local, goles_visitante, jornada) VALUES
+(17, 10, '2025-04-18 19:00:00', 0, 1,17), -- Puebla vs Necaxa
+(1, 8, '2025-04-19 17:00:00', 5, 0,17),   -- América vs Mazatlán
+(6, 14, '2025-04-19 19:00:00', 0, 2,17),  -- FC Juárez vs Querétaro
+(18, 4, '2025-04-19 19:05:00', 2, 2,17),  -- Toluca vs Cruz Azul
+(16, 13, '2025-04-19 21:00:00', 2, 1,17), -- Tigres vs Pumas UNAM
+(2, 5, '2025-04-19 21:15:00', 1, 1,17),   -- Atlas vs Guadalajara
+(15, 17, '2025-04-20 17:00:00', 0, 4,17), -- Santos Laguna vs Tijuana
+(3, 11, '2025-04-20 19:00:00', 2, 1,17),  -- Atlético San Luis vs Pachuca
+(7, 9, '2025-04-20 19:05:00', 0, 2,17);   -- León vs Monterrey
 
 Select * from partidos; 
+
 
 -- 6. Tabla Estadísticas de Jugadores por Partido
 CREATE TABLE estadisticas_jugadores (
@@ -680,6 +685,8 @@ CREATE TABLE estadisticas_jugadores (
     FOREIGN KEY (id_jugador) REFERENCES jugadores(id_jugador)
 );
 
+
+
 -- 7. Tabla Estadísticas Generales del Partido
 CREATE TABLE estadisticas_partido (
     id_partido INT PRIMARY KEY,
@@ -693,6 +700,221 @@ CREATE TABLE estadisticas_partido (
     tarjetas_rojas_visitante INT DEFAULT 0,
     FOREIGN KEY (id_partido) REFERENCES partidos(id_partido)
 );
+SELECT
+    SUM(
+        CASE WHEN el.nombre = 'América' THEN ep.corners_local
+             WHEN ev.nombre = 'América' THEN ep.corners_visitante
+        END
+    ) AS total_corners,
+    SUM(
+        CASE WHEN el.nombre = 'América' THEN ep.faltas_local
+             WHEN ev.nombre = 'América' THEN ep.faltas_visitante
+        END
+    ) AS total_faltas,
+    SUM(
+        CASE WHEN el.nombre = 'América' THEN ep.tarjetas_amarillas_local
+             WHEN ev.nombre = 'América' THEN ep.tarjetas_amarillas_visitante
+        END
+    ) AS total_tarjetas_amarillas,
+    SUM(
+        CASE WHEN el.nombre = 'América' THEN ep.tarjetas_rojas_local
+             WHEN ev.nombre = 'América' THEN ep.tarjetas_rojas_visitante
+        END
+    ) AS total_tarjetas_rojas
+FROM estadisticas_partido ep
+JOIN partidos p ON ep.id_partido = p.id_partido
+JOIN equipos el ON p.id_equipo_local = el.id_equipo
+JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+WHERE el.nombre = 'América' OR ev.nombre = 'América';
+
+SELECT
+    p.id_partido,
+    p.fecha,
+    CASE 
+        WHEN LOWER(el.nombre) = LOWER('atlas') THEN 'Local'
+        WHEN LOWER(ev.nombre) = LOWER('atlas') THEN 'Visitante'
+    END AS condicion,
+    CASE 
+        WHEN LOWER(el.nombre) = LOWER('atlas') THEN ep.corners_local
+        ELSE ep.corners_visitante
+    END AS corners,
+    CASE 
+        WHEN LOWER(el.nombre) = LOWER('atlas') THEN ep.faltas_local
+        ELSE ep.faltas_visitante
+    END AS faltas,
+    CASE 
+        WHEN LOWER(el.nombre) = LOWER('atlas') THEN ep.tarjetas_amarillas_local
+        ELSE ep.tarjetas_amarillas_visitante
+    END AS tarjetas_amarillas,
+    CASE 
+        WHEN LOWER(el.nombre) = LOWER('atlas') THEN ep.tarjetas_rojas_local
+        ELSE ep.tarjetas_rojas_visitante
+    END AS tarjetas_rojas
+FROM estadisticas_partido ep
+JOIN partidos p ON ep.id_partido = p.id_partido
+JOIN equipos el ON p.id_equipo_local = el.id_equipo
+JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+WHERE LOWER(el.nombre) = LOWER('atlas') OR LOWER(ev.nombre) = LOWER('atlas');
+
+
+
+
+INSERT INTO estadisticas_partido (id_partido, corners_local, corners_visitante, faltas_local, faltas_visitante, tarjetas_amarillas_local, tarjetas_amarillas_visitante, tarjetas_rojas_local, tarjetas_rojas_visitante) VALUES
+(1, 4, 6, 12, 14, 2, 3, 0, 0),
+(2, 5, 5, 10, 11, 1, 1, 0, 0),
+(3, 3, 7, 14, 13, 2, 2, 1, 0),
+(4, 6, 4, 9, 12, 1, 2, 0, 0),
+(5, 7, 6, 15, 10, 3, 1, 0, 0),
+(6, 8, 5, 13, 14, 2, 2, 0, 0),
+(7, 5, 6, 11, 12, 1, 1, 0, 0),
+(8, 9, 4, 12, 13, 2, 1, 0, 0),
+(9, 4, 8, 10, 11, 1, 3, 0, 0),
+-- Jornada 2
+(10, 5, 6, 13, 12, 2, 1, 0, 0),
+(11, 4, 5, 11, 14, 1, 2, 0, 0),
+(12, 6, 4, 12, 10, 3, 1, 0, 0),
+(13, 7, 8, 15, 12, 2, 2, 0, 1),
+(14, 5, 7, 10, 13, 1, 2, 0, 0),
+(15, 6, 6, 12, 12, 2, 3, 1, 0),
+(16, 4, 8, 11, 11, 1, 1, 0, 0),
+(17, 7, 5, 14, 13, 2, 1, 0, 0),
+-- jornada 3
+(18, 8, 4, 10, 12, 1, 2, 0, 0),
+(19, 5, 7, 13, 11, 2, 2, 0, 0),
+(20, 6, 6, 14, 12, 3, 1, 0, 0),
+(21, 7, 5, 12, 14, 2, 2, 0, 0),
+(22, 4, 8, 11, 10, 1, 2, 0, 0),
+(23, 5, 7, 13, 13, 2, 3, 0, 0),
+(24, 6, 5, 14, 12, 2, 1, 0, 0),
+(25, 7, 6, 15, 13, 1, 2, 0, 0),
+-- jornada 4
+(26, 5, 7, 11, 12, 2, 2, 0, 0),
+(27, 6, 4, 10, 13, 1, 2, 0, 0),
+(28, 8, 5, 13, 14, 3, 1, 0, 0),
+(29, 7, 6, 12, 11, 2, 2, 0, 0),
+(30, 5, 7, 14, 12, 2, 3, 1, 0),
+(31, 4, 8, 11, 10, 1, 2, 0, 0),
+(32, 6, 5, 12, 14, 2, 2, 0, 0),
+(33, 7, 7, 13, 12, 1, 1, 0, 0),
+-- jornada 5
+(34, 8, 4, 14, 12, 2, 1, 0, 0),
+(35, 5, 6, 11, 13, 1, 2, 0, 0),
+(36, 6, 7, 12, 11, 2, 3, 0, 0),
+(37, 4, 8, 10, 12, 1, 1, 0, 0),
+(38, 5, 7, 14, 13, 3, 2, 0, 0),
+(39, 7, 5, 12, 10, 2, 2, 1, 0),
+(40, 6, 6, 11, 11, 1, 2, 0, 0),
+(41, 8, 4, 13, 12, 2, 1, 0, 0),
+-- jornada 6
+(42, 5, 6, 12, 14, 2, 1, 0, 0),
+(43, 6, 7, 13, 12, 1, 2, 0, 0),
+(44, 7, 5, 11, 10, 2, 2, 0, 0),
+(45, 8, 4, 10, 13, 3, 1, 0, 0),
+(46, 4, 5, 12, 11, 1, 2, 0, 0),
+(47, 6, 6, 13, 14, 2, 3, 0, 0),
+(48, 5, 7, 11, 12, 1, 2, 0, 0),
+(49, 7, 8, 14, 10, 2, 1, 0, 0),
+
+-- jornada 7
+(50, 6, 5, 12, 13, 1, 2, 0, 0),
+(51, 5, 7, 11, 12, 2, 2, 0, 0),
+(52, 4, 8, 14, 13, 3, 1, 0, 0),
+(53, 6, 6, 12, 10, 1, 2, 0, 0),
+(54, 7, 5, 13, 11, 2, 3, 0, 0),
+(55, 8, 4, 12, 14, 1, 2, 0, 0),
+(56, 5, 6, 11, 10, 2, 1, 0, 0),
+(57, 4, 7, 14, 12, 3, 2, 0, 0),
+(58, 6, 4, 14, 9, 1, 2, 0, 1),
+(59, 7, 5, 11, 13, 3, 1, 1, 0),
+(60, 4, 6, 12, 10, 2, 2, 0, 0),
+(61, 5, 4, 13, 11, 1, 3, 1, 0),
+(62, 6, 5, 10, 14, 2, 1, 0, 1),
+(63, 7, 6, 11, 10, 3, 2, 0, 0),
+(64, 4, 7, 13, 12, 1, 1, 1, 0),
+(65, 3, 4, 15, 11, 3, 2, 1, 0),
+(66, 4, 5, 16, 12, 1, 1, 0, 1),
+(67, 5, 6, 17, 13, 2, 2, 1, 0),
+(68, 6, 3, 18, 14, 3, 1, 0, 1),
+(69, 7, 4, 19, 15, 1, 2, 1, 0),
+(70, 3, 5, 10, 16, 2, 1, 0, 1),
+(71, 4, 6, 11, 17, 3, 2, 1, 0),
+(72, 5, 3, 12, 10, 1, 1, 0, 1),
+(73, 6, 4, 13, 11, 2, 2, 1, 0),
+(74, 7, 5, 14, 12, 3, 1, 0, 1),
+(75, 3, 6, 15, 13, 1, 2, 1, 0),
+(76, 4, 3, 16, 14, 2, 1, 0, 1),
+(77, 5, 4, 17, 15, 3, 2, 1, 0),
+(78, 6, 5, 18, 16, 1, 1, 0, 1),
+(79, 7, 6, 19, 17, 2, 2, 1, 0),
+(80, 3, 3, 10, 10, 3, 1, 0, 1),
+(81, 4, 4, 11, 11, 1, 2, 1, 0),
+(82, 5, 5, 12, 12, 2, 1, 0, 1),
+(83, 6, 6, 13, 13, 3, 2, 1, 0),
+(84, 7, 3, 14, 14, 1, 1, 0, 1),
+(85, 3, 4, 15, 15, 2, 2, 1, 0),
+(86, 4, 5, 16, 16, 3, 1, 0, 1),
+(87, 5, 6, 17, 17, 1, 2, 1, 0),
+(88, 6, 3, 18, 10, 2, 1, 0, 1),
+(89, 7, 4, 19, 11, 3, 2, 1, 0),
+(90, 3, 5, 10, 12, 1, 1, 0, 1),
+(91, 4, 6, 11, 13, 2, 2, 1, 0),
+(92, 5, 3, 12, 14, 3, 1, 0, 1),
+(93, 6, 4, 13, 15, 1, 2, 1, 0),
+(94, 7, 5, 14, 16, 2, 1, 0, 1),
+(95, 3, 6, 15, 17, 3, 2, 1, 0),
+(96, 4, 3, 16, 10, 1, 1, 0, 1),
+(97, 5, 4, 17, 11, 2, 2, 1, 0),
+(98, 6, 5, 18, 12, 3, 1, 0, 1),
+(99, 7, 6, 19, 13, 1, 2, 1, 0),
+(100, 3, 3, 10, 14, 2, 1, 0, 1),
+(101, 4, 6, 10, 12, 1, 2, 0, 0),
+(102, 7, 3, 14, 11, 2, 1, 1, 0),
+(103, 5, 4, 13, 13, 3, 2, 0, 0),
+(104, 6, 5, 11, 14, 1, 1, 0, 1),
+(105, 3, 6, 15, 12, 2, 2, 1, 0),
+(106, 7, 4, 16, 13, 3, 1, 0, 0),
+(107, 5, 3, 14, 15, 1, 2, 0, 1),
+(108, 6, 4, 12, 16, 2, 1, 1, 0),
+(109, 4, 5, 13, 14, 3, 2, 0, 0),
+(110, 7, 6, 15, 12, 1, 1, 0, 1),
+(111, 5, 4, 12, 13, 2, 2, 1, 0),
+(112, 6, 3, 14, 11, 3, 1, 0, 0),
+(113, 4, 7, 16, 14, 1, 2, 0, 1),
+(114, 3, 5, 13, 15, 2, 1, 1, 0),
+(115, 6, 4, 12, 16, 3, 2, 0, 0),
+(116, 5, 3, 14, 12, 1, 1, 0, 1),
+(117, 7, 6, 15, 13, 2, 2, 1, 0),
+(118, 4, 5, 11, 14, 3, 1, 0, 0),
+(119, 6, 4, 13, 15, 1, 2, 0, 1),
+(120, 3, 7, 14, 16, 2, 1, 1, 0),
+(121, 6, 5, 14, 13, 2, 1, 0, 0),
+(122, 5, 6, 12, 15, 1, 2, 0, 0),
+(123, 7, 4, 16, 14, 2, 1, 1, 0),
+(124, 4, 5, 13, 12, 3, 2, 0, 0),
+(125, 6, 4, 15, 13, 1, 1, 0, 1),
+(126, 5, 3, 14, 15, 2, 2, 1, 0),
+(127, 7, 6, 16, 12, 3, 1, 0, 0),
+(128, 4, 7, 12, 14, 1, 2, 0, 1),
+(129, 6, 5, 13, 16, 2, 1, 1, 0),
+(130, 5, 4, 15, 14, 3, 2, 0, 0),
+(131, 7, 3, 14, 12, 1, 1, 0, 1),
+(132, 4, 6, 16, 15, 2, 2, 1, 0),
+(133, 6, 4, 12, 13, 3, 1, 0, 0),
+(134, 5, 7, 13, 14, 1, 2, 0, 1),
+(135, 7, 5, 15, 16, 2, 1, 1, 0),
+(136, 4, 3, 14, 12, 3, 2, 0, 0),
+(137, 6, 4, 16, 14, 1, 1, 0, 1),
+(138, 5, 6, 12, 15, 2, 2, 1, 0),
+(139, 7, 4, 13, 16, 3, 1, 0, 0),
+(140, 4, 5, 15, 12, 1, 2, 0, 1),
+(141, 6, 7, 14, 13, 2, 1, 1, 0),
+(142, 5, 4, 16, 14, 3, 2, 0, 0),
+(143, 7, 6, 12, 15, 1, 1, 0, 1),
+(144, 4, 3, 13, 14, 2, 2, 1, 0),
+(145, 6, 5, 15, 16, 3, 1, 0, 0),
+(146, 5, 7, 14, 12, 1, 2, 0, 1),
+(147, 7, 4, 16, 15, 2, 1, 1, 0),
+(148, 4, 6, 12, 13, 3, 2, 0, 0);
 
 -- 8. Tabla Notificaciones (Para gestionar si un usuario ha sido notificado sobre partidos de sus equipos preferidos)
 CREATE TABLE notificaciones (
@@ -717,3 +939,5 @@ FROM jugadores j
 JOIN estadisticas_jugadores sj ON j.id_jugador = sj.id_jugador
 JOIN equipos e ON j.id_equipo = e.id_equipo
 GROUP BY j.id_jugador, e.nombre;
+
+SHOW FULL COLUMNS FROM equipos;

@@ -8,10 +8,9 @@ class EstadisticaPartidoService {
     public static function obtenerPorId($id) {
         return EstadisticaPartido::obtenerPorId($id);
     }
-    public static function obtenerTotalesPorEquipo($nombreEquipo) {
-        return EstadisticaPartido::obtenerTotalesPorEquipo($nombreEquipo);
+    public static function obtenerTotalesPorEquipoInsensitive($nombreEquipo) {
+        return EstadisticaPartido::obtenerTotalesPorEquipoInsensitive($nombreEquipo);
     }
-    
     public static function obtenerDetallePorEquipo($nombreEquipo) {
         return EstadisticaPartido::obtenerDetallePorEquipo($nombreEquipo);
     }

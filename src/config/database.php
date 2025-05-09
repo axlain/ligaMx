@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$db_name = 'ligaMx';
-$username = 'root';
-$password = 'kaway123';
+$db_name = 'ligamx';
+$username = 'ligamx';
+$password = 'password';
 
 $conn = new mysqli($host, $username, $password, $db_name);
 

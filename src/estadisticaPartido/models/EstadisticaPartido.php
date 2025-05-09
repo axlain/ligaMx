@@ -20,46 +20,53 @@ class EstadisticaPartido {
         return $result->fetch_assoc();
     }
 
-    public static function obtenerTotalesPorEquipo($nombreEquipo) {
+    public static function obtenerTotalesPorEquipoInsensitive($nombreEquipo) {
         global $conn;
         $sql = "
             SELECT
                 SUM(
-                    CASE WHEN el.nombre = ? THEN ep.corners_local
-                         WHEN ev.nombre = ? THEN ep.corners_visitante
+                    CASE WHEN LOWER(el.nombre) = LOWER(?) THEN ep.corners_local
+                        WHEN LOWER(ev.nombre) = LOWER(?) THEN ep.corners_visitante
                     END
                 ) AS total_corners,
                 SUM(
-                    CASE WHEN el.nombre = ? THEN ep.faltas_local
-                         WHEN ev.nombre = ? THEN ep.faltas_visitante
+                    CASE WHEN LOWER(el.nombre) = LOWER(?) THEN ep.faltas_local
+                        WHEN LOWER(ev.nombre) = LOWER(?) THEN ep.faltas_visitante
                     END
                 ) AS total_faltas,
                 SUM(
-                    CASE WHEN el.nombre = ? THEN ep.tarjetas_amarillas_local
-                         WHEN ev.nombre = ? THEN ep.tarjetas_amarillas_visitante
+                    CASE WHEN LOWER(el.nombre) = LOWER(?) THEN ep.tarjetas_amarillas_local
+                        WHEN LOWER(ev.nombre) = LOWER(?) THEN ep.tarjetas_amarillas_visitante
                     END
                 ) AS total_tarjetas_amarillas,
                 SUM(
-                    CASE WHEN el.nombre = ? THEN ep.tarjetas_rojas_local
-                         WHEN ev.nombre = ? THEN ep.tarjetas_rojas_visitante
+                    CASE WHEN LOWER(el.nombre) = LOWER(?) THEN ep.tarjetas_rojas_local
+                        WHEN LOWER(ev.nombre) = LOWER(?) THEN ep.tarjetas_rojas_visitante
                     END
                 ) AS total_tarjetas_rojas
             FROM estadisticas_partido ep
             JOIN partidos p ON ep.id_partido = p.id_partido
             JOIN equipos el ON p.id_equipo_local = el.id_equipo
             JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-            WHERE el.nombre = ? OR ev.nombre = ?";
+            WHERE LOWER(el.nombre) = LOWER(?) OR LOWER(ev.nombre) = LOWER(?)";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssss", $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo);
+        $stmt->bind_param("ssssssssss",
+            $nombreEquipo, $nombreEquipo, // corners
+            $nombreEquipo, $nombreEquipo, // faltas
+            $nombreEquipo, $nombreEquipo, // amarillas
+            $nombreEquipo, $nombreEquipo, // rojas
+            $nombreEquipo, $nombreEquipo  // WHERE
+        );
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
     
-    public static function obtenerDetallePorEquipo($nombreEquipo) {
-        global $conn;
-        $sql = $sql = "
+   public static function obtenerDetallePorEquipo($nombreEquipo) {
+    global $conn;
+    $sql = "
         SELECT
             p.id_partido,
             p.fecha,
@@ -87,17 +94,20 @@ class EstadisticaPartido {
         JOIN partidos p ON ep.id_partido = p.id_partido
         JOIN equipos el ON p.id_equipo_local = el.id_equipo
         JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-        WHERE LOWER(el.nombre) = LOWER(?) OR LOWER(ev.nombre) = LOWER(?)
-    ";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssss", $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo, $nombreEquipo);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        return $data;
-    }
+        WHERE LOWER(el.nombre) = LOWER(?) OR LOWER(ev.nombre) = LOWER(?)";
     
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssss", 
+            $nombreEquipo, $nombreEquipo, $nombreEquipo, 
+            $nombreEquipo, $nombreEquipo, $nombreEquipo, 
+            $nombreEquipo, $nombreEquipo
+        );
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 
 }
 ?>
