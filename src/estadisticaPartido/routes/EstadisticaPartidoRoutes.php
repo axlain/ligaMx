@@ -14,11 +14,21 @@ else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapar
     $equipo = $matches[1];
     EstadisticaPartidoController::totalesPorEquipoInsensitive(urldecode($equipo));
 }
-
 else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapartido\/detallePorEquipo\/([a-zA-Z]+)/', $request_uri, $matches)) {
     $equipo = $matches[1];
     EstadisticaPartidoController::detallePorEquipo(urldecode($equipo));
 }
+else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapartido\/compararTotales\/([a-zA-Z]+)\/([a-zA-Z]+)/', $request_uri, $matches)) {
+    $equipo1 = urldecode($matches[1]);
+    $equipo2 = urldecode($matches[2]);
+    EstadisticaPartidoController::compararTotalesPorEquipos($equipo1, $equipo2);
+}
+else if ($request_method === "GET" && preg_match('/\/api\/ligamx\/estadisticapartido\/detalleComparadoEquipos\/([a-zA-Z]+)\/([a-zA-Z]+)/', $request_uri, $matches)) {
+    $equipo1 = urldecode($matches[1]);
+    $equipo2 = urldecode($matches[2]);
+    EstadisticaPartidoController::detalleComparadoEquipos($equipo1, $equipo2);
+}
+
 
 
 ?>
