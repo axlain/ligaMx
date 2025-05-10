@@ -47,6 +47,24 @@ class PartidoController {
     
         echo $xml->asXML();
     }
+
+    public static function partidosPorEquipo($nombreEquipo) {
+        $nombreEquipo = strtolower($nombreEquipo);
+        $partidos = PartidoService::obtenerPartidosPorEquipo($nombreEquipo);
+
+        header('Content-Type: application/xml');
+        $xml = new SimpleXMLElement('<estadisticasEquipo/>');
+        $partidosXml = $xml->addChild('partidos');
+
+        foreach ($partidos as $partido) {
+            $partidoXml = $partidosXml->addChild('partido');
+            foreach ($partido as $key => $value) {
+                $partidoXml->addChild($key, htmlspecialchars($value));
+            }
+        }
+
+        echo $xml->asXML();
+    }
     
     
 }

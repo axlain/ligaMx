@@ -11,6 +11,9 @@ class PartidoService {
     public static function obtenerPartidosConEquiposPorJornada($jornada) {
         return Partido::obtenerPartidosConEquiposPorJornada($jornada);
     }
+    public static function obtenerPartidosPorEquipo($nombreEquipo) {
+        return Partido::obtenerPartidosPorEquipo($nombreEquipo);
+    }
     
 
 
