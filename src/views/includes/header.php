@@ -18,6 +18,7 @@
         <li class="nav-item"><a class="nav-link" href="../equipo/index.php">Equipos</a></li>
         <li class="nav-item"><a class="nav-link" href="../jugador/index.php">Jugadores</a></li>
         <li class="nav-item"><a class="nav-link" href="../partido/index.php">Partidos</a></li>
+        <li class="nav-item"><a class="nav-link" href="../estadisticaPartido/index.php">Estadísticas de Partido</a></li>
       </ul>
     </div>
   </div>
