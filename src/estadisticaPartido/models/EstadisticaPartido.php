@@ -153,54 +153,51 @@ class EstadisticaPartido {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-   public static function obtenerDetalleComparadoEquipos($equipo1, $equipo2) {
-    global $conn;
-    $sql = "
-        SELECT
-            p.id_partido,
-            p.jornada,
-            p.fecha,
-            el.nombre AS equipo,
-            'Local' AS condicion,
-            ep.corners_local AS corners,
-            ep.faltas_local AS faltas,
-            ep.tarjetas_amarillas_local AS tarjetas_amarillas,
-            ep.tarjetas_rojas_local AS tarjetas_rojas
-        FROM estadisticas_partido ep
-        JOIN partidos p ON ep.id_partido = p.id_partido
-        JOIN equipos el ON p.id_equipo_local = el.id_equipo
-        WHERE LOWER(el.nombre) = LOWER(?) OR LOWER(el.nombre) = LOWER(?)
+    public static function obtenerDetalleComparadoEquipos($equipo1, $equipo2) {
+        global $conn;
+        
+        $sql = "
+            SELECT 
+                p.id_partido,
+                p.jornada,
+                p.fecha,
+                el.nombre AS equipo,
+                'Local' AS condicion,
+                ep.corners_local AS corners,
+                ep.faltas_local AS faltas,
+                ep.tarjetas_amarillas_local AS tarjetas_amarillas,
+                ep.tarjetas_rojas_local AS tarjetas_rojas
+            FROM estadisticas_partido ep
+            JOIN partidos p ON ep.id_partido = p.id_partido
+            JOIN equipos el ON p.id_equipo_local = el.id_equipo
+            WHERE LOWER(el.nombre) = LOWER(?) OR LOWER(el.nombre) = LOWER(?)
 
-        UNION ALL
+            UNION
 
-        SELECT
-            p.id_partido,
-            p.jornada,
-            p.fecha,
-            ev.nombre AS equipo,
-            'Visitante' AS condicion,
-            ep.corners_visitante AS corners,
-            ep.faltas_visitante AS faltas,
-            ep.tarjetas_amarillas_visitante AS tarjetas_amarillas,
-            ep.tarjetas_rojas_visitante AS tarjetas_rojas
-        FROM estadisticas_partido ep
-        JOIN partidos p ON ep.id_partido = p.id_partido
-        JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
-        WHERE LOWER(ev.nombre) = LOWER(?) OR LOWER(ev.nombre) = LOWER(?)
+            SELECT 
+                p.id_partido,
+                p.jornada,
+                p.fecha,
+                ev.nombre AS equipo,
+                'Visitante' AS condicion,
+                ep.corners_visitante AS corners,
+                ep.faltas_visitante AS faltas,
+                ep.tarjetas_amarillas_visitante AS tarjetas_amarillas,
+                ep.tarjetas_rojas_visitante AS tarjetas_rojas
+            FROM estadisticas_partido ep
+            JOIN partidos p ON ep.id_partido = p.id_partido
+            JOIN equipos ev ON p.id_equipo_visitante = ev.id_equipo
+            WHERE LOWER(ev.nombre) = LOWER(?) OR LOWER(ev.nombre) = LOWER(?)
+            
+            ORDER BY jornada ASC, fecha ASC
+        ";
 
-        ORDER BY fecha;
-    ";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $equipo1, $equipo2, $equipo1, $equipo2);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
-
-
-
-
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $equipo1, $equipo2, $equipo1, $equipo2);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
 }
 ?>
