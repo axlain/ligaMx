@@ -11,6 +11,7 @@ $equipos = EquipoService::obtenerTodos();
   <?php foreach($equipos as $eq):
       // ruta web absoluta: /ligaMx/src/equipo/img/<logo>
       $imgPath = '/ligaMx/src/equipo/img/' . ($eq['logo'] ?? '');
+      $id      = urlencode($eq['id_equipo']);
   ?>
     <div class="col-md-3 mb-4">
       <div class="card card-team text-center">
@@ -20,6 +21,13 @@ $equipos = EquipoService::obtenerTodos();
           alt="<?= htmlspecialchars($eq['nombre'] ?? '') ?>">
         <div class="card-body">
           <h5 class="card-title"><?= htmlspecialchars($eq['nombre'] ?? '') ?></h5>
+          <div class="d-grid gap-2">
+            <!-- Botón: Ver jugadores de este equipo -->
+            <a href="../jugador/index.php?equipo=<?= $id ?>"
+               class="btn btn-sm btn-primary">
+              Ver Jugadores
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -27,4 +35,3 @@ $equipos = EquipoService::obtenerTodos();
 </div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
-

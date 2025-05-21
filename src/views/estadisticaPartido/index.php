@@ -2,21 +2,19 @@
 require_once __DIR__ . '/../../estadisticaPartido/services/EstadisticaPartidoService.php';
 require_once __DIR__ . '/../../partido/services/PartidoService.php';
 
-// (opcional) filtro GET por partido
+// opcional: filtrar por partido
 $partidoId = $_GET['partido'] ?? '';
 
-// obtengo todas las estadísticas
 $estadisticas = EstadisticaPartidoService::obtenerTodos();
 
-
 if ($partidoId !== '') {
-     $estadisticas = array_filter(
+    $estadisticas = array_filter(
         $estadisticas,
-        fn($e) => (is_array($e) ? $e['id_partido'] : $e->id_partido) == $partidoId
+        fn($e) => (int)$e['id_partido'] === (int)$partidoId
     );
 }
 
-// para mostrar la jornada o identificación del partido
+// para mostrar la jornada
 $partidos   = PartidoService::obtenerTodos();
 $mapPartido = array_column($partidos, 'jornada', 'id_partido');
 ?>
@@ -24,7 +22,7 @@ $mapPartido = array_column($partidos, 'jornada', 'id_partido');
 
 <h1>Estadísticas de Partido</h1>
 
-<form class="row g-3 mb-3" method="get">
+<form action="index.php" method="get" class="row g-3 mb-3">
   <div class="col-md-4">
     <select name="partido" class="form-select">
       <option value="">-- Todas las estadísticas --</option>
@@ -42,39 +40,40 @@ $mapPartido = array_column($partidos, 'jornada', 'id_partido');
   </div>
 </form>
 
-<table class="table table-striped">
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>ID Estadística</th>
       <th>Partido (Jornada)</th>
-      <th>Minutos Jugados</th>
-      <th>Goles</th>
-      <th>Asistencias</th>
+      <th>Corners Local</th>
+      <th>Corners Visitante</th>
+      <th>Faltas Local</th>
+      <th>Faltas Visitante</th>
+      <th>Ám. Local</th>
+      <th>Ám. Visitante</th>
+      <th>Roj. Local</th>
+      <th>Roj. Visitante</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach($estadisticas as $eRaw):
-      // aseguro array asociativo para acceder sin warnings
-      $e = is_array($eRaw) ? $eRaw : (array)$eRaw;
-      $idEst       = $e['id_estadistica']     ?? '—';
-      $jornada     = $mapPartido[$e['id_partido']]  ?? '—';
-      $minutos     = $e['minutos_jugados']    ?? '—';
-      $goles       = $e['goles']              ?? '—';
-      $asistencias = $e['asistencias']        ?? '—';
-    ?>
+    <?php foreach($estadisticas as $e): ?>
+      <?php 
+        // aseguro array
+        $est = is_array($e) ? $e : (array)$e;
+        $jornada = $mapPartido[$est['id_partido']] ?? '—';
+      ?>
       <tr>
-        <td><?= htmlspecialchars($idEst) ?></td>
         <td>Jornada <?= htmlspecialchars($jornada) ?></td>
-        <td><?= htmlspecialchars($minutos) ?></td>
-        <td><?= htmlspecialchars($goles) ?></td>
-        <td><?= htmlspecialchars($asistencias) ?></td>
+        <td><?= htmlspecialchars($est['corners_local']      ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['corners_visitante']  ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['faltas_local']       ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['faltas_visitante']   ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['tarjetas_amarillas_local']      ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['tarjetas_amarillas_visitante']  ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['tarjetas_rojas_local']          ?? '—') ?></td>
+        <td><?= htmlspecialchars($est['tarjetas_rojas_visitante']      ?? '—') ?></td>
         <td>
-          <a href="show.php?id=<?= urlencode($idEst) ?>"
-             class="btn btn-sm btn-info">Ver</a>
-          <a href="edit.php?id=<?= urlencode($idEst) ?>"
-             class="btn btn-sm btn-warning">Editar</a>
-          <a href="delete.php?id=<?= urlencode($idEst) ?>"
+          <a href="delete.php?partido=<?= urlencode($est['id_partido']) ?>"
              class="btn btn-sm btn-danger"
              onclick="return confirm('¿Eliminar estadística?');">Eliminar</a>
         </td>

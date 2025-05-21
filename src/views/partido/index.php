@@ -13,14 +13,14 @@ if ($jornada !== '') {
 }
 
 // mapeo para mostrar nombres de equipo
-$equipos    = EquipoService::obtenerTodos();
-$mapEquipo  = array_column($equipos, 'nombre', 'id_equipo');
+$equipos   = EquipoService::obtenerTodos();
+$mapEquipo = array_column($equipos, 'nombre', 'id_equipo');
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
 <h1>Partidos Registrados</h1>
 
-<form class="row g-3 mb-3" method="get">
+<form action="index.php" method="get" class="row g-3 mb-3">
   <div class="col-md-4">
     <input type="number" name="jornada" class="form-control"
            placeholder="Filtrar por jornada"
@@ -56,11 +56,14 @@ $mapEquipo  = array_column($equipos, 'nombre', 'id_equipo');
         <td><?= date('d/m/Y H:i', strtotime($p['fecha'])) ?></td>
         <td><?= htmlspecialchars($res) ?></td>
         <td class="table-actions">
-          <a href="edit.php?id=<?= $p['id_partido'] ?>"
+          <a href="edit.php?id=<?= urlencode($p['id_partido']) ?>"
              class="btn btn-sm btn-warning">Editar</a>
-          <a href="delete.php?id=<?= $p['id_partido'] ?>"
+          <a href="delete.php?id=<?= urlencode($p['id_partido']) ?>"
              class="btn btn-sm btn-danger"
              onclick="return confirm('¿Eliminar partido?');">Eliminar</a>
+          <!-- Botón para ir a estadísticas de este partido -->
+          <a href="../estadisticaPartido/index.php?partido=<?= urlencode($p['id_partido']) ?>"
+             class="btn btn-sm btn-info">Ver Estadísticas</a>
         </td>
       </tr>
     <?php endforeach; ?>

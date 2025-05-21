@@ -2,14 +2,29 @@
 require_once __DIR__ . '/../../jugador/services/JugadorService.php';
 require_once __DIR__ . '/../../equipo/services/EquipoService.php';
 
+// obtengo todos los jugadores sin filtros
+$jugadores = JugadorService::obtenerTodos();
+
 // filtros GET
-$nombre   = $_GET['nombre'] ?? '';
+$nombre   = trim($_GET['nombre']   ?? '');
 $equipoId = $_GET['equipo'] ?? '';
 
-// obtengo jugadores con filtrado del Service
-$jugadores = JugadorService::obtenerTodos($nombre, $equipoId);
+// aplico filtros manuales sobre el array
+if ($nombre !== '') {
+    $jugadores = array_filter($jugadores, function($j) use ($nombre) {
+        // $j puede ser objeto o array
+        $n = is_array($j) ? $j['nombre'] : $j->nombre;
+        return stripos($n, $nombre) !== false;
+    });
+}
+if ($equipoId !== '') {
+    $jugadores = array_filter($jugadores, function($j) use ($equipoId) {
+        $idEq = is_array($j) ? $j['id_equipo'] : $j->id_equipo;
+        return $idEq == $equipoId;
+    });
+}
 
-// obtengo para el select de equipos
+// obtengo lista de equipos para el select y para mapear nombres
 $equipos = EquipoService::obtenerTodos();
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
@@ -26,9 +41,9 @@ $equipos = EquipoService::obtenerTodos();
     <select name="equipo" class="form-select">
       <option value="">-- Todos los equipos --</option>
       <?php foreach($equipos as $eq): ?>
-        <option value="<?= $eq['id_equipo'] ?>"
-          <?= $equipoId == $eq['id_equipo'] ? 'selected' : '' ?>>
-          <?= htmlspecialchars($eq['nombre']) ?>
+        <option value="<?= is_array($eq) ? $eq['id_equipo'] : $eq->id_equipo ?>"
+          <?= $equipoId == (is_array($eq) ? $eq['id_equipo'] : $eq->id_equipo) ? 'selected' : '' ?>>
+          <?= htmlspecialchars(is_array($eq) ? $eq['nombre'] : $eq->nombre) ?>
         </option>
       <?php endforeach; ?>
     </select>
@@ -50,23 +65,29 @@ $equipos = EquipoService::obtenerTodos();
     </tr>
   </thead>
   <tbody>
-    <?php foreach($jugadores as $j): 
-      // calculo edad
-      $nac   = new DateTime($j['fecha_nacimiento']);
-      $edad  = (new DateTime())->diff($nac)->y;
-      // obtengo nombre de equipo
-      $eq    = array_filter($equipos, fn($e)=> $e['id_equipo']==$j['id_equipo']);
-      $eq    = $eq ? array_shift($eq)['nombre'] : '—';
+    <?php foreach($jugadores as $j):
+        // convierto a array para simplificar
+        $J = is_array($j) ? $j : (array)$j;
+        // calculo edad
+        $nac   = new DateTime($J['fecha_nacimiento']);
+        $edad  = (new DateTime())->diff($nac)->y;
+        // obtengo nombre de equipo
+        $eqObj = array_filter($equipos, fn($e)=>
+            (is_array($e) ? $e['id_equipo'] : $e->id_equipo) == $J['id_equipo']
+        );
+        $eqObj = $eqObj ? array_shift($eqObj) : null;
+        $eqName = $eqObj
+            ? (is_array($eqObj) ? $eqObj['nombre'] : $eqObj->nombre)
+            : '—';
     ?>
       <tr>
-        <td><?= htmlspecialchars($j['nombre']) ?></td>
-        <td><?= htmlspecialchars($eq) ?></td>
-        <td><?= htmlspecialchars($j['posicion']) ?></td>
+        <td><?= htmlspecialchars($J['nombre']) ?></td>
+        <td><?= htmlspecialchars($eqName) ?></td>
+        <td><?= htmlspecialchars($J['posicion']) ?></td>
         <td><?= $edad ?></td>
         <td class="table-actions">
-          <a href="edit.php?id=<?= $j['id_jugador'] ?>"
+          <a href="edit.php?id=<?= urlencode($J['id_jugador']) ?>"
              class="btn btn-sm btn-warning">Editar</a>
-          <!-- opción Eliminar eliminada según tu petición -->
         </td>
       </tr>
     <?php endforeach; ?>
