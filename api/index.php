@@ -8,6 +8,7 @@ if (strpos($request_uri, '/api/ligamx') === 0) {
     include '../src/jugador/index.php';
     include '../src/partido/index.php';
     include '../src/estadisticaPartido/index.php';
+    include '../src/usuario/index.php';
 } else {
     header("HTTP/1.1 404 Not Found");
 }
