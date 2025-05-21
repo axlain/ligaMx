@@ -80,29 +80,7 @@ class UsuarioController {
     }
 
 
-    public static function eliminarPreferenciasUsuario() {
-        header('Content-Type: application/json');
-
-        $data = file_get_contents("php://input");
-        $xml = simplexml_load_string($data);
-
-        if (!$xml || !isset($xml->id_usuario)) {
-            http_response_code(400);
-            echo json_encode(['error' => 'XML mal formado o falta id_usuario']);
-            return;
-        }
-
-        $idUsuario = (int) $xml->id_usuario;
-
-        try {
-            UsuarioService::eliminarPreferenciasUsuario($idUsuario);
-            http_response_code(200);
-            echo json_encode(['mensaje' => 'Preferencias eliminadas correctamente']);
-        } catch (Exception $e) {
-            http_response_code(400);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-    }
+   
 
 }
 ?>-

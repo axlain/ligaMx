@@ -70,18 +70,6 @@ class Usuario {
         return $res;
     }
 
-    // Eliminar preferencias anteriores de un usuario
-    public static function eliminarPreferenciasUsuario($idUsuario) {
-        global $conn;
-        $sql = "DELETE FROM preferencias_usuarios WHERE id_usuario = ?";
-        $stmt = $conn->prepare($sql);
-        if (!$stmt) {
-            throw new Exception("Error preparando eliminación preferencias: " . $conn->error);
-        }
-        $stmt->bind_param("i", $idUsuario);
-        $res = $stmt->execute();
-        $stmt->close();
-        return $res;
-    }
+    
 }
 ?>

@@ -11,7 +11,5 @@ elseif ($request_method === 'POST' && $request_uri === '/api/ligamx/usuario/crea
     UsuarioController::crearUsuario();
 } elseif ($request_method === 'POST' && $request_uri === '/api/ligamx/usuario/preferencias') {
     UsuarioController::guardarPreferenciasEquipos();
-} elseif ($request_method === 'POST' && $request_uri === '/api/ligamx/usuario/preferencias/eliminar') {
-    UsuarioController::eliminarPreferenciasUsuario();
-}
+} 
 ?>

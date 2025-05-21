@@ -29,9 +29,7 @@ class UsuarioService {
         return true;
     }
 
-    public static function eliminarPreferenciasUsuario($idUsuario) {
-        return Usuario::eliminarPreferenciasUsuario($idUsuario);
-    }
+   
    
 
 
