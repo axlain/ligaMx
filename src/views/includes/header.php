@@ -1,3 +1,10 @@
+<?php
+// src/views/includes/header.php
+// Aseguramos que la sesión esté activa
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,6 +26,14 @@
         <li class="nav-item"><a class="nav-link" href="../jugador/index.php">Jugadores</a></li>
         <li class="nav-item"><a class="nav-link" href="../partido/index.php">Partidos</a></li>
         <li class="nav-item"><a class="nav-link" href="../estadisticaPartido/index.php">Estadísticas de Partido</a></li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+          <li class="nav-item"><a class="nav-link" href="/src/views/usuario/logout.php">Cerrar sesión (<?= htmlspecialchars($_SESSION['usuario_nombre']) ?>)</a></li>
+        <?php else: ?>
+          <li class="nav-item"><a class="nav-link" href="../usuario/index.php">Iniciar sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="../usuario/create.php">Registrarse</a></li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>
