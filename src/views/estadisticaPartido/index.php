@@ -37,6 +37,7 @@ $mapPartido = array_column($partidos, 'jornada', 'id_partido');
   <div class="col-md-8">
     <button class="btn btn-primary" type="submit">Filtrar</button>
     <a href="add.php" class="btn btn-success">Agregar Estadística</a>
+    <a href="comparar.php" class="btn btn-outline-secondary">Comparar totales por equipo</a>
   </div>
 </form>
 
