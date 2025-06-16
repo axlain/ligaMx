@@ -67,7 +67,6 @@ if ($detallePorEquipo === null) {
   </div>
   <div class="col-md-6">
     <button class="btn btn-primary" type="submit">Filtrar</button>
-    <a href="add.php" class="btn btn-success">Agregar Estadística</a>
     <a href="comparar.php" class="btn btn-outline-secondary">Comparar totales por equipo</a>
   </div>
 </form>
@@ -118,7 +117,6 @@ if ($detallePorEquipo === null) {
         <th>Ám. Visitante</th>
         <th>Roj. Local</th>
         <th>Roj. Visitante</th>
-        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -137,11 +135,6 @@ if ($detallePorEquipo === null) {
           <td><?= htmlspecialchars($est['tarjetas_amarillas_visitante']  ?? '—') ?></td>
           <td><?= htmlspecialchars($est['tarjetas_rojas_local']          ?? '—') ?></td>
           <td><?= htmlspecialchars($est['tarjetas_rojas_visitante']      ?? '—') ?></td>
-          <td>
-            <a href="delete.php?partido=<?= urlencode($est['id_partido']) ?>"
-               class="btn btn-sm btn-danger"
-               onclick="return confirm('¿Eliminar estadística?');">Eliminar</a>
-          </td>
         </tr>
       <?php endforeach; ?>
     </tbody>

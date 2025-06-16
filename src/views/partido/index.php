@@ -99,11 +99,6 @@ if ($idEquipo !== '') {
           <td><?= date('d/m/Y H:i', strtotime($p['fecha'])) ?></td>
           <td><?= htmlspecialchars($res) ?></td>
           <td class="table-actions">
-            <a href="delete.php?id=<?= urlencode($p['id_partido']) ?>"
-               class="btn btn-sm btn-danger"
-               onclick="return confirm('¿Eliminar partido?');">
-              Eliminar
-            </a>
             <a href="../estadisticaPartido/index.php?partido=<?= urlencode($p['id_partido']) ?>"
                class="btn btn-sm btn-info">Ver Estadísticas</a>
           </td>

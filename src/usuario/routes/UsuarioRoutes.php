@@ -12,4 +12,4 @@ elseif ($request_method === 'POST' && $request_uri === '/api/ligamx/usuario/crea
 } elseif ($request_method === 'POST' && $request_uri === '/api/ligamx/usuario/preferencias') {
     UsuarioController::guardarPreferenciasEquipos();
 } 
-?>
+?>  
