@@ -7,14 +7,14 @@ $equipos = EquipoService::obtenerTodos();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // reúno datos del formulario
-    $nuevoJugador = [
-        'nombre'           => $_POST['nombre']           ?? '',
-        'id_equipo'        => $_POST['equipo']           ?? '',
-        'posicion'         => $_POST['posicion']         ?? '',
-        'fecha_nacimiento' => $_POST['fecha_nacimiento'] ?? '',
-    ];
-    // llamo al service para agregar
-    JugadorService::agregar($nuevoJugador);
+    $nombre = $_POST['nombre'] ?? '';
+    $id_equipo = $_POST['equipo'] ?? '';
+    $posicion = $_POST['posicion'] ?? '';
+    $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
+
+    // llamo al método correcto del service
+    JugadorService::agregarJugador($nombre, $id_equipo, $posicion, $fecha_nacimiento);
+
     // redirijo al listado
     header('Location: index.php');
     exit;

@@ -19,20 +19,20 @@ if (!$jugador) {
     header('Location: index.php');
     exit;
 }
+
 // convertir a array si viene como objeto
 $J = is_array($jugador) ? $jugador : (array)$jugador;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // reúno datos actualizados
-    $actualizado = [
-        'id_jugador'       => $id,
-        'nombre'           => $_POST['nombre']           ?? '',
-        'id_equipo'        => $_POST['equipo']           ?? '',
-        'posicion'         => $_POST['posicion']         ?? '',
-        'fecha_nacimiento' => $_POST['fecha_nacimiento'] ?? '',
-    ];
-    // llamo al service para actualizar
-    JugadorService::actualizar($actualizado);
+    // Reúno datos del formulario
+    $nombre = $_POST['nombre'] ?? '';
+    $id_equipo = $_POST['equipo'] ?? '';
+    $posicion = $_POST['posicion'] ?? '';
+    $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
+
+    // llamo al método correcto del service
+    JugadorService::actualizarJugador($id, $nombre, $id_equipo, $posicion, $fecha_nacimiento);
+
     // redirijo al listado
     header('Location: index.php');
     exit;
